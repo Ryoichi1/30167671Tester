@@ -1,0 +1,465 @@
+﻿<Page
+	xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+
+	xmlns:ed="http://schemas.microsoft.com/expression/2010/drawing"
+    xmlns:my="clr-namespace:_30167671Tester"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+	x:Class="_30167671Tester.Test"
+	x:Name="Page"
+	WindowTitle="Page"
+	FlowDirection="LeftToRight"
+
+	Height="814" Width="1578" HorizontalAlignment="Left" VerticalAlignment="Top" Loaded="Page_Loaded">
+    <Page.Resources>
+        <my:ProgressConverter x:Key="ProgConverter"/>
+        <my:AngleConverter x:Key="AngleConverter"/>
+
+
+        <!--アニメーション定義-->
+        <Storyboard x:Key="StoryboardMess">
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="labelMessage">
+                <EasingDoubleKeyFrame KeyTime="0" Value="0"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:1" Value="1"/>
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
+
+        <Storyboard x:Key="Blink">
+            <DoubleAnimation
+				Storyboard.TargetName="labelMessage" 
+				Storyboard.TargetProperty="Opacity"
+				From="0.35"
+				To="1"
+				Duration="0:0:0:1" 
+				AutoReverse="True"
+				RepeatBehavior="Forever"/>
+        </Storyboard>
+
+        <Storyboard x:Key="StoryboardRingLoad">
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" 
+				Storyboard.TargetName="canvasRing" >
+                <EasingDoubleKeyFrame KeyTime="0" Value="0"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.8" Value="1"/>
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
+
+        <Storyboard x:Key="StoryboardDecision">
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="canvasDecision">
+                <EasingDoubleKeyFrame KeyTime="0" Value="0"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="1">
+                    <EasingDoubleKeyFrame.EasingFunction>
+                        <SineEase EasingMode="EaseIn"/>
+                    </EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+            </DoubleAnimationUsingKeyFrames>
+
+        </Storyboard>
+
+        <Storyboard x:Key="StoryboardBorderTickOn"/>
+        <Storyboard x:Key="StoryboardBorderTickOff"/>
+
+
+    </Page.Resources>
+
+    <Canvas x:Name="LayoutRoot">
+        <Canvas x:Name="Canvas検査データ" Height="800" Canvas.Left="484" Width="1084" IsEnabled="{Binding StartButtonEnable}" Canvas.Top="4">
+            <Canvas.Resources>
+                <Style TargetType="{x:Type Label}">
+                    <Setter Property="Height"  Value="20"/>
+                    <Setter Property="Foreground" Value="White"/>
+                    <Setter Property="FontSize" Value="12"/>
+                    <Setter Property="Padding" Value="0,0,0,0"/>
+                </Style>
+            </Canvas.Resources>
+            <Canvas.Background>
+                <SolidColorBrush Color="White" Opacity="0.15"/>
+            </Canvas.Background>
+            <Canvas Height="105" Width="184" Canvas.Top="4" Canvas.Left="3">
+                <TextBlock TextWrapping="Wrap" Text="●電源電圧" Foreground="White" RenderTransformOrigin="0.494,0.611" Height="17" Canvas.Left="2" Width="82" Canvas.Top="1" FontSize="14"/>
+                <Border BorderBrush="#FF0097FF" BorderThickness="1" Height="1" Canvas.Left="3" Canvas.Top="19" Width="178" Background="#FF0097FF">
+                    <Border.Effect>
+                        <DropShadowEffect Color="#FF00F3FF" BlurRadius="50" Direction="0" ShadowDepth="0"/>
+                    </Border.Effect>
+                </Border>
+                <TextBlock Text="12V" Width="24" Height="16" Foreground="White" RenderTransformOrigin="0.494,0.611" Canvas.Left="12" Canvas.Top="25" HorizontalAlignment="Right"/>
+                <TextBlock Text="5V" Width="17" Height="16" Foreground="White" RenderTransformOrigin="0.494,0.611" Canvas.Left="19" Canvas.Top="45" VerticalAlignment="Center"/>
+                <TextBlock Text="3.3V" Width="28" Height="16" Foreground="White" RenderTransformOrigin="0.494,0.611" Canvas.Left="7" Canvas.Top="65"/>
+                <TextBlock Text="AVDD" Width="36" Height="16" Foreground="White" RenderTransformOrigin="0.494,0.611" Canvas.Top="85"/>
+                <Label Content="{Binding Vol12V}" Background="{Binding ColVol12V}" Width="48" Height="18" Canvas.Left="36" Canvas.Top="24" BorderBrush="White" BorderThickness="1" VerticalContentAlignment="Center"/>
+                <Label Content="{Binding Vol5V}" Background="{Binding ColVol5V}" Width="48" Height="18" Canvas.Left="36" Canvas.Top="44" BorderBrush="White" BorderThickness="1" VerticalContentAlignment="Center"/>
+                <Label Content="{Binding Vol33V}" Background="{Binding ColVol33V}" Width="48" Height="18" Canvas.Left="36" Canvas.Top="64" BorderBrush="White" BorderThickness="1" VerticalContentAlignment="Center"/>
+                <Label Content="{Binding VolAVDD}" Background="{Binding ColVolAVDD}" Width="48" Height="18" Canvas.Left="36" Canvas.Top="84" BorderBrush="White" BorderThickness="1" VerticalContentAlignment="Center"/>
+                <TextBlock Text="AVCC" Width="35" Height="16" Foreground="White" RenderTransformOrigin="0.494,0.611" Canvas.Left="96" Canvas.Top="25" HorizontalAlignment="Right"/>
+                <TextBlock Text="VREF" Width="32" Height="16" Foreground="White" RenderTransformOrigin="0.494,0.611" Canvas.Left="99" Canvas.Top="46" VerticalAlignment="Center"/>
+                <TextBlock Text="AVCCD" Width="41" Height="16" Foreground="White" RenderTransformOrigin="0.494,0.611" Canvas.Left="89" Canvas.Top="65"/>
+                <TextBlock Text="S5V" Width="24" Height="16" Foreground="White" RenderTransformOrigin="0.494,0.611" Canvas.Top="84" Canvas.Left="106"/>
+                <Label Content="{Binding VolAVCC}" Background="{Binding ColVolAVCC}" Width="48" Height="18" Canvas.Left="132" Canvas.Top="24" BorderBrush="White" BorderThickness="1" VerticalContentAlignment="Center"/>
+                <Label Content="{Binding VolVREF}" Background="{Binding ColVolVREF}" Width="48" Height="18" Canvas.Left="132" Canvas.Top="44" BorderBrush="White" BorderThickness="1" VerticalContentAlignment="Center"/>
+                <Label Content="{Binding VolAVCCD}" Background="{Binding ColVolAVCCD}" Width="48" Height="18" Canvas.Left="132" Canvas.Top="64" BorderBrush="White" BorderThickness="1" VerticalContentAlignment="Center"/>
+                <Label Content="{Binding VolS5V}" Background="{Binding ColVolS5V}" Width="48" Height="18" Canvas.Left="132" Canvas.Top="84" BorderBrush="White" BorderThickness="1" VerticalContentAlignment="Center"/>
+            </Canvas>
+            <Canvas Height="82" Width="205" Canvas.Top="114" Canvas.Left="3">
+                <TextBlock TextWrapping="Wrap" Text="●DIN読み取り" Foreground="White" RenderTransformOrigin="0.494,0.611" Height="18" Canvas.Left="2" Width="99" Canvas.Top="1" FontSize="14"/>
+                <Border BorderBrush="#FF0097FF" BorderThickness="1" Height="1" Canvas.Left="3" Canvas.Top="19" Width="178" Background="#FF0097FF">
+                    <Border.Effect>
+                        <DropShadowEffect Color="#FF00F3FF" BlurRadius="50" Direction="0" ShadowDepth="0"/>
+                    </Border.Effect>
+                </Border>
+                <TextBlock Text="PA" Width="18" Height="16" Foreground="White" RenderTransformOrigin="0.494,0.611" Canvas.Left="8" Canvas.Top="24" HorizontalAlignment="Right"/>
+                <TextBlock Text="PB" Width="18" Height="16" Foreground="White" RenderTransformOrigin="0.494,0.611" Canvas.Left="43" Canvas.Top="24" HorizontalAlignment="Right"/>
+                <TextBlock Text="PC" Width="18" Height="16" Foreground="White" RenderTransformOrigin="0.494,0.611" Canvas.Left="76" Canvas.Top="24" HorizontalAlignment="Right"/>
+                <TextBlock Text="PE" Width="18" Height="16" Foreground="White" RenderTransformOrigin="0.494,0.611" Canvas.Left="110" Canvas.Top="24" HorizontalAlignment="Right"/>
+                <TextBlock Text="PH" Width="18" Height="16" Foreground="White" RenderTransformOrigin="0.494,0.611" Canvas.Left="144" Canvas.Top="24" HorizontalAlignment="Right"/>
+                <TextBlock Text="PL" Width="18" Height="16" Foreground="White" RenderTransformOrigin="0.494,0.611" Canvas.Left="179" Canvas.Top="24" HorizontalAlignment="Right"/>
+                <Label Content="{Binding PA_OFF}" Background="{Binding ColPA_OFF}" Width="32" Height="18" Canvas.Left="1" Canvas.Top="40" BorderBrush="White" BorderThickness="1" VerticalContentAlignment="Center"/>
+                <Label Content="{Binding PB_OFF}" Background="{Binding ColPB_OFF}" Width="32" Height="18" Canvas.Left="35" Canvas.Top="40" BorderBrush="White" BorderThickness="1" VerticalContentAlignment="Center"/>
+                <Label Content="{Binding PC_OFF}" Background="{Binding ColPC_OFF}" Width="32" Height="18" Canvas.Left="69" Canvas.Top="40" BorderBrush="White" BorderThickness="1" VerticalContentAlignment="Center"/>
+                <Label Content="{Binding PE_OFF}" Background="{Binding ColPE_OFF}" Width="32" Height="18" Canvas.Left="103" Canvas.Top="40" BorderBrush="White" BorderThickness="1" VerticalContentAlignment="Center"/>
+                <Label Content="{Binding PH_OFF}" Background="{Binding ColPH_OFF}" Width="32" Height="18" Canvas.Left="137" Canvas.Top="40" BorderBrush="White" BorderThickness="1" VerticalContentAlignment="Center"/>
+                <Label Content="{Binding PL_OFF}" Background="{Binding ColPL_OFF}" Width="32" Height="18" Canvas.Left="171" Canvas.Top="40" BorderBrush="White" BorderThickness="1" VerticalContentAlignment="Center"/>
+                <Label Content="{Binding PA_ON}" Background="{Binding ColPA_ON}" Width="32" Height="18" Canvas.Left="1" Canvas.Top="60" BorderBrush="White" BorderThickness="1" VerticalContentAlignment="Center"/>
+                <Label Content="{Binding PB_ON}" Background="{Binding ColPB_ON}" Width="32" Height="18" Canvas.Left="35" Canvas.Top="60" BorderBrush="White" BorderThickness="1" VerticalContentAlignment="Center"/>
+                <Label Content="{Binding PC_ON}" Background="{Binding ColPC_ON}" Width="32" Height="18" Canvas.Left="69" Canvas.Top="60" BorderBrush="White" BorderThickness="1" VerticalContentAlignment="Center"/>
+                <Label Content="{Binding PE_ON}" Background="{Binding ColPE_ON}" Width="32" Height="18" Canvas.Left="103" Canvas.Top="60" BorderBrush="White" BorderThickness="1" VerticalContentAlignment="Center"/>
+                <Label Content="{Binding PH_ON}" Background="{Binding ColPH_ON}" Width="32" Height="18" Canvas.Left="137" Canvas.Top="60" BorderBrush="White" BorderThickness="1" VerticalContentAlignment="Center"/>
+                <Label Content="{Binding PL_ON}" Background="{Binding ColPL_ON}" Width="32" Height="18" Canvas.Left="171" Canvas.Top="60" BorderBrush="White" BorderThickness="1" VerticalContentAlignment="Center"/>
+            </Canvas>
+            <Canvas Height="238" Width="205" Canvas.Top="199" Canvas.Left="3">
+                <TextBlock TextWrapping="Wrap" Text="●ANポートデジタル入力" Foreground="White" RenderTransformOrigin="0.494,0.611" Height="18" Canvas.Left="2" Width="162" Canvas.Top="1" FontSize="14"/>
+                <Border BorderBrush="#FF0097FF" BorderThickness="1" Height="1" Canvas.Left="3" Canvas.Top="18" Width="178" Background="#FF0097FF">
+                    <Border.Effect>
+                        <DropShadowEffect Color="#FF00F3FF" BlurRadius="50" Direction="0" ShadowDepth="0"/>
+                    </Border.Effect>
+                </Border>
+                <TextBlock Text="読取値①" Width="52" Height="16" Foreground="White" RenderTransformOrigin="0.494,0.611" Canvas.Left="44" Canvas.Top="21" HorizontalAlignment="Right"/>
+                <TextBlock Text="ANA12" Width="40" Height="16" Foreground="White" RenderTransformOrigin="0.494,0.611" Canvas.Top="38" HorizontalAlignment="Right" Canvas.Left="2"/>
+                <TextBlock Text="ANA13" Width="40" Height="16" Foreground="White" RenderTransformOrigin="0.494,0.611" Canvas.Top="57" HorizontalAlignment="Right" Canvas.Left="2"/>
+                <TextBlock Text="ANA14" Width="40" Height="16" Foreground="White" RenderTransformOrigin="0.494,0.611" Canvas.Top="78" HorizontalAlignment="Right" Canvas.Left="2"/>
+                <TextBlock Text="ANA15" Width="40" Height="16" Foreground="White" RenderTransformOrigin="0.494,0.611" Canvas.Top="98" HorizontalAlignment="Right" Canvas.Left="2"/>
+                <TextBlock Text="ANA17" Width="40" Height="16" Foreground="White" RenderTransformOrigin="0.494,0.611" Canvas.Top="118" HorizontalAlignment="Right" Canvas.Left="2"/>
+                <TextBlock Text="ANA23" Width="40" Height="16" Foreground="White" RenderTransformOrigin="0.494,0.611" Canvas.Top="138" HorizontalAlignment="Right" Canvas.Left="2"/>
+                <TextBlock Text="ANA24" Width="40" Height="16" Foreground="White" RenderTransformOrigin="0.494,0.611" Canvas.Top="158" HorizontalAlignment="Right" Canvas.Left="2"/>
+                <TextBlock Text="ANA25" Width="40" Height="16" Foreground="White" RenderTransformOrigin="0.494,0.611" Canvas.Top="178" HorizontalAlignment="Right" Canvas.Left="2"/>
+                <TextBlock Text="ANA26" Width="40" Height="16" Foreground="White" RenderTransformOrigin="0.494,0.611" Canvas.Top="198" HorizontalAlignment="Right" Canvas.Left="2"/>
+                <TextBlock Text="ANA27" Width="40" Height="16" Foreground="White" RenderTransformOrigin="0.494,0.611" Canvas.Top="217" HorizontalAlignment="Right" Canvas.Left="2"/>
+                <Label Content="{Binding ANA12}" Background="{Binding ColVol12V}" Width="48" Height="18" Canvas.Left="44" Canvas.Top="37" BorderBrush="White" BorderThickness="1" VerticalContentAlignment="Center"/>
+                <Label Content="{Binding ANA13}" Background="{Binding ColVol12V}" Width="48" Height="18" Canvas.Left="44" Canvas.Top="57" BorderBrush="White" BorderThickness="1" VerticalContentAlignment="Center"/>
+                <Label Content="{Binding ANA14}" Background="{Binding ColVol12V}" Width="48" Height="18" Canvas.Left="44" Canvas.Top="77" BorderBrush="White" BorderThickness="1" VerticalContentAlignment="Center"/>
+                <Label Content="{Binding ANA15}" Background="{Binding ColVol12V}" Width="48" Height="18" Canvas.Left="44" Canvas.Top="97" BorderBrush="White" BorderThickness="1" VerticalContentAlignment="Center"/>
+                <Label Content="{Binding ANA17}" Background="{Binding ColVol12V}" Width="48" Height="18" Canvas.Left="44" Canvas.Top="117" BorderBrush="White" BorderThickness="1" VerticalContentAlignment="Center"/>
+                <Label Content="{Binding ANA23}" Background="{Binding ColVol12V}" Width="48" Height="18" Canvas.Left="44" Canvas.Top="137" BorderBrush="White" BorderThickness="1" VerticalContentAlignment="Center"/>
+                <Label Content="{Binding ANA24}" Background="{Binding ColVol12V}" Width="48" Height="18" Canvas.Left="44" Canvas.Top="157" BorderBrush="White" BorderThickness="1" VerticalContentAlignment="Center"/>
+                <Label Content="{Binding ANA25}" Background="{Binding ColVol12V}" Width="48" Height="18" Canvas.Left="44" Canvas.Top="177" BorderBrush="White" BorderThickness="1" VerticalContentAlignment="Center"/>
+                <Label Content="{Binding ANA26}" Background="{Binding ColVol12V}" Width="48" Height="18" Canvas.Left="44" Canvas.Top="197" BorderBrush="White" BorderThickness="1" VerticalContentAlignment="Center"/>
+                <Label Content="{Binding ANA27}" Background="{Binding ColVol12V}" Width="48" Height="18" Canvas.Left="44" Canvas.Top="217" BorderBrush="White" BorderThickness="1" VerticalContentAlignment="Center"/>
+            </Canvas>
+            <Canvas Height="343" Width="198" Canvas.Top="447" Canvas.Left="3">
+                <TextBlock TextWrapping="Wrap" Text="●AD入力回路" Foreground="White" RenderTransformOrigin="0.494,0.611" Height="15" Canvas.Left="2" Width="94" Canvas.Top="1" FontSize="14"/>
+                <Border BorderBrush="#FF0097FF" BorderThickness="1" Height="1" Canvas.Left="3" Canvas.Top="18" Width="178" Background="#FF0097FF">
+                    <Border.Effect>
+                        <DropShadowEffect Color="#FF00F3FF" BlurRadius="50" Direction="0" ShadowDepth="0"/>
+                    </Border.Effect>
+                </Border>
+                <Canvas Height="77" Width="195" Canvas.Top="22" Canvas.Left="2">
+                    <TextBlock Text="■A0" Width="34" Height="16" Foreground="White" RenderTransformOrigin="0.494,0.611" Canvas.Left="44" HorizontalAlignment="Right" Canvas.Top="2"/>
+                    <TextBlock Text="0.0V" Width="29" Height="16" Foreground="White" RenderTransformOrigin="0.494,0.611" Canvas.Top="19" HorizontalAlignment="Right" Canvas.Left="9"/>
+                    <TextBlock Text="5.0V" Width="29" Height="16" Foreground="White" RenderTransformOrigin="0.494,0.611" Canvas.Top="37" HorizontalAlignment="Right" Canvas.Left="9"/>
+                    <TextBlock Text="10.0V" Width="37" Height="16" Foreground="White" RenderTransformOrigin="0.494,0.611" Canvas.Top="57" HorizontalAlignment="Right" Canvas.Left="2"/>
+                    <Label Content="{Binding A0_0}" Background="{Binding ColA0_0}" Width="48" Height="18" Canvas.Left="41" Canvas.Top="17" BorderBrush="White" BorderThickness="1" VerticalContentAlignment="Center"/>
+                    <Label Content="{Binding A0_5}" Background="{Binding ColA0_5}" Width="48" Height="18" Canvas.Left="41" Canvas.Top="37" BorderBrush="White" BorderThickness="1" VerticalContentAlignment="Center"/>
+                    <Label Content="{Binding A0_10}" Background="{Binding ColA0_10}" Width="48" Height="18" Canvas.Left="41" Canvas.Top="57" BorderBrush="White" BorderThickness="1" VerticalContentAlignment="Center"/>
+                    <TextBlock Text="■A1" Width="34" Height="16" Foreground="White" RenderTransformOrigin="0.494,0.611" Canvas.Left="96" HorizontalAlignment="Right" Canvas.Top="1"/>
+                    <Label Content="{Binding A1_0}" Background="{Binding ColA1_0}" Width="48" Height="18" Canvas.Left="93" Canvas.Top="17" BorderBrush="White" BorderThickness="1" VerticalContentAlignment="Center"/>
+                    <Label Content="{Binding A1_5}" Background="{Binding ColA1_5}" Width="48" Height="18" Canvas.Left="93" Canvas.Top="37" BorderBrush="White" BorderThickness="1" VerticalContentAlignment="Center"/>
+                    <Label Content="{Binding A1_10}" Background="{Binding ColA1_10}" Width="48" Height="18" Canvas.Left="93" Canvas.Top="57" BorderBrush="White" BorderThickness="1" VerticalContentAlignment="Center"/>
+                    <TextBlock Text="■A2" Width="34" Height="16" Foreground="White" RenderTransformOrigin="0.494,0.611" Canvas.Left="148" HorizontalAlignment="Right" Canvas.Top="1"/>
+                    <Label Content="{Binding A2_0}" Background="{Binding ColA2_0}" Width="48" Height="18" Canvas.Left="145" Canvas.Top="17" BorderBrush="White" BorderThickness="1" VerticalContentAlignment="Center"/>
+                    <Label Content="{Binding A2_5}" Background="{Binding ColA2_5}" Width="48" Height="18" Canvas.Left="145" Canvas.Top="37" BorderBrush="White" BorderThickness="1" VerticalContentAlignment="Center"/>
+                    <Label Content="{Binding A2_10}" Background="{Binding ColA2_10}" Width="48" Height="18" Canvas.Left="145" Canvas.Top="57" BorderBrush="White" BorderThickness="1" VerticalContentAlignment="Center"/>
+                </Canvas>
+                <Canvas Height="77" Width="196" Canvas.Top="101" Canvas.Left="2">
+                    <TextBlock Text="■A3" Width="34" Height="16" Foreground="White" RenderTransformOrigin="0.494,0.611" Canvas.Left="44" HorizontalAlignment="Right" Canvas.Top="2"/>
+                    <TextBlock Text="0.0V" Width="29" Height="16" Foreground="White" RenderTransformOrigin="0.494,0.611" Canvas.Top="19" HorizontalAlignment="Right" Canvas.Left="9"/>
+                    <TextBlock Text="5.0V" Width="29" Height="16" Foreground="White" RenderTransformOrigin="0.494,0.611" Canvas.Top="37" HorizontalAlignment="Right" Canvas.Left="9"/>
+                    <TextBlock Text="10.0V" Width="37" Height="16" Foreground="White" RenderTransformOrigin="0.494,0.611" Canvas.Top="57" HorizontalAlignment="Right" Canvas.Left="2"/>
+                    <Label Content="{Binding A3_0}" Background="{Binding ColA3_0}" Width="48" Height="18" Canvas.Left="41" Canvas.Top="17" BorderBrush="White" BorderThickness="1" VerticalContentAlignment="Center"/>
+                    <Label Content="{Binding A3_5}" Background="{Binding ColA3_5}" Width="48" Height="18" Canvas.Left="41" Canvas.Top="37" BorderBrush="White" BorderThickness="1" VerticalContentAlignment="Center"/>
+                    <Label Content="{Binding A3_10}" Background="{Binding ColA3_10}" Width="48" Height="18" Canvas.Left="41" Canvas.Top="57" BorderBrush="White" BorderThickness="1" VerticalContentAlignment="Center"/>
+                    <TextBlock Text="■A4" Width="34" Height="16" Foreground="White" RenderTransformOrigin="0.494,0.611" Canvas.Left="96" HorizontalAlignment="Right" Canvas.Top="1"/>
+                    <Label Content="{Binding A4_0}" Background="{Binding ColA4_0}" Width="48" Height="18" Canvas.Left="93" Canvas.Top="17" BorderBrush="White" BorderThickness="1" VerticalContentAlignment="Center"/>
+                    <Label Content="{Binding A4_5}" Background="{Binding ColA4_5}" Width="48" Height="18" Canvas.Left="93" Canvas.Top="37" BorderBrush="White" BorderThickness="1" VerticalContentAlignment="Center"/>
+                    <Label Content="{Binding A4_10}" Background="{Binding ColA4_10}" Width="48" Height="18" Canvas.Left="93" Canvas.Top="57" BorderBrush="White" BorderThickness="1" VerticalContentAlignment="Center"/>
+                    <TextBlock Text="■A5" Width="34" Height="16" Foreground="White" RenderTransformOrigin="0.494,0.611" Canvas.Left="148" HorizontalAlignment="Right" Canvas.Top="1"/>
+                    <Label Content="{Binding A5_0}" Background="{Binding ColA5_0}" Width="48" Height="18" Canvas.Left="145" Canvas.Top="17" BorderBrush="White" BorderThickness="1" VerticalContentAlignment="Center"/>
+                    <Label Content="{Binding A5_5}" Background="{Binding ColA5_5}" Width="48" Height="18" Canvas.Left="145" Canvas.Top="37" BorderBrush="White" BorderThickness="1" VerticalContentAlignment="Center"/>
+                    <Label Content="{Binding A5_10}" Background="{Binding ColA5_10}" Width="48" Height="18" Canvas.Left="145" Canvas.Top="57" BorderBrush="White" BorderThickness="1" VerticalContentAlignment="Center"/>
+                </Canvas>
+                <Canvas Height="76" Width="195" Canvas.Top="180" Canvas.Left="3">
+                    <TextBlock Text="■A6" Width="34" Height="16" Foreground="White" RenderTransformOrigin="0.494,0.611" Canvas.Left="44" HorizontalAlignment="Right" Canvas.Top="2"/>
+                    <TextBlock Text="0.0V" Width="29" Height="16" Foreground="White" RenderTransformOrigin="0.494,0.611" Canvas.Top="19" HorizontalAlignment="Right" Canvas.Left="9"/>
+                    <TextBlock Text="5.0V" Width="29" Height="16" Foreground="White" RenderTransformOrigin="0.494,0.611" Canvas.Top="37" HorizontalAlignment="Right" Canvas.Left="9"/>
+                    <TextBlock Text="10.0V" Width="37" Height="16" Foreground="White" RenderTransformOrigin="0.494,0.611" Canvas.Top="57" HorizontalAlignment="Right" Canvas.Left="2"/>
+                    <Label Content="{Binding A6_0}" Background="{Binding ColA6_0}" Width="48" Height="18" Canvas.Left="41" Canvas.Top="17" BorderBrush="White" BorderThickness="1" VerticalContentAlignment="Center"/>
+                    <Label Content="{Binding A6_5}" Background="{Binding ColA6_5}" Width="48" Height="18" Canvas.Left="41" Canvas.Top="37" BorderBrush="White" BorderThickness="1" VerticalContentAlignment="Center"/>
+                    <Label Content="{Binding A6_10}" Background="{Binding ColA6_10}" Width="48" Height="18" Canvas.Left="41" Canvas.Top="57" BorderBrush="White" BorderThickness="1" VerticalContentAlignment="Center"/>
+                    <TextBlock Text="■A7" Width="34" Height="16" Foreground="White" RenderTransformOrigin="0.494,0.611" Canvas.Left="96" HorizontalAlignment="Right" Canvas.Top="1"/>
+                    <Label Content="{Binding A7_0}" Background="{Binding ColA7_0}" Width="48" Height="18" Canvas.Left="93" Canvas.Top="17" BorderBrush="White" BorderThickness="1" VerticalContentAlignment="Center"/>
+                    <Label Content="{Binding A7_5}" Background="{Binding ColA7_5}" Width="48" Height="18" Canvas.Left="93" Canvas.Top="37" BorderBrush="White" BorderThickness="1" VerticalContentAlignment="Center"/>
+                    <Label Content="{Binding A7_10}" Background="{Binding ColA7_10}" Width="48" Height="18" Canvas.Left="93" Canvas.Top="57" BorderBrush="White" BorderThickness="1" VerticalContentAlignment="Center"/>
+                    <TextBlock Text="■A8" Width="34" Height="16" Foreground="White" RenderTransformOrigin="0.494,0.611" Canvas.Left="148" HorizontalAlignment="Right" Canvas.Top="1"/>
+                    <Label Content="{Binding A8_0}" Background="{Binding ColA8_0}" Width="48" Height="18" Canvas.Left="145" Canvas.Top="17" BorderBrush="White" BorderThickness="1" VerticalContentAlignment="Center"/>
+                    <Label Content="{Binding A8_5}" Background="{Binding ColA8_5}" Width="48" Height="18" Canvas.Left="145" Canvas.Top="37" BorderBrush="White" BorderThickness="1" VerticalContentAlignment="Center"/>
+                    <Label Content="{Binding A8_10}" Background="{Binding ColA8_10}" Width="48" Height="18" Canvas.Left="145" Canvas.Top="57" BorderBrush="White" BorderThickness="1" VerticalContentAlignment="Center"/>
+                </Canvas>
+                <Canvas Height="76" Width="196" Canvas.Top="259" Canvas.Left="2">
+                    <TextBlock Text="■A9" Width="34" Height="16" Foreground="White" RenderTransformOrigin="0.494,0.611" Canvas.Left="44" HorizontalAlignment="Right" Canvas.Top="2"/>
+                    <TextBlock Text="0.0V" Width="29" Height="16" Foreground="White" RenderTransformOrigin="0.494,0.611" Canvas.Top="19" HorizontalAlignment="Right" Canvas.Left="9"/>
+                    <TextBlock Text="5.0V" Width="29" Height="16" Foreground="White" RenderTransformOrigin="0.494,0.611" Canvas.Top="37" HorizontalAlignment="Right" Canvas.Left="9"/>
+                    <TextBlock Text="10.0V" Width="37" Height="16" Foreground="White" RenderTransformOrigin="0.494,0.611" Canvas.Top="57" HorizontalAlignment="Right" Canvas.Left="2"/>
+                    <Label Content="{Binding A9_0}" Background="{Binding ColA9_0}" Width="48" Height="18" Canvas.Left="41" Canvas.Top="17" BorderBrush="White" BorderThickness="1" VerticalContentAlignment="Center"/>
+                    <Label Content="{Binding A9_5}" Background="{Binding ColA9_5}" Width="48" Height="18" Canvas.Left="41" Canvas.Top="37" BorderBrush="White" BorderThickness="1" VerticalContentAlignment="Center"/>
+                    <Label Content="{Binding A9_10}" Background="{Binding ColA9_10}" Width="48" Height="18" Canvas.Left="41" Canvas.Top="57" BorderBrush="White" BorderThickness="1" VerticalContentAlignment="Center"/>
+                    <TextBlock Text="■A10" Width="34" Height="16" Foreground="White" RenderTransformOrigin="0.494,0.611" Canvas.Left="96" HorizontalAlignment="Right" Canvas.Top="1"/>
+                    <Label Content="{Binding A10_0}" Background="{Binding ColA10_0}" Width="48" Height="18" Canvas.Left="93" Canvas.Top="17" BorderBrush="White" BorderThickness="1" VerticalContentAlignment="Center"/>
+                    <Label Content="{Binding A10_5}" Background="{Binding ColA10_5}" Width="48" Height="18" Canvas.Left="93" Canvas.Top="37" BorderBrush="White" BorderThickness="1" VerticalContentAlignment="Center"/>
+                    <Label Content="{Binding A10_10}" Background="{Binding ColA10_10}" Width="48" Height="18" Canvas.Left="93" Canvas.Top="57" BorderBrush="White" BorderThickness="1" VerticalContentAlignment="Center"/>
+                    <TextBlock Text="■A11" Width="34" Height="16" Foreground="White" RenderTransformOrigin="0.494,0.611" Canvas.Left="148" HorizontalAlignment="Right" Canvas.Top="1"/>
+                    <Label Content="{Binding A11_0}" Background="{Binding ColA11_0}" Width="48" Height="18" Canvas.Left="145" Canvas.Top="17" BorderBrush="White" BorderThickness="1" VerticalContentAlignment="Center"/>
+                    <Label Content="{Binding A11_5}" Background="{Binding ColA11_5}" Width="48" Height="18" Canvas.Left="145" Canvas.Top="37" BorderBrush="White" BorderThickness="1" VerticalContentAlignment="Center"/>
+                    <Label Content="{Binding A11_10}" Background="{Binding ColA11_10}" Width="48" Height="18" Canvas.Left="145" Canvas.Top="57" BorderBrush="White" BorderThickness="1" VerticalContentAlignment="Center"/>
+                </Canvas>
+            </Canvas>
+
+
+
+        </Canvas>
+
+
+
+
+        <Canvas x:Name="CanvasStatus" Height="58" Canvas.Left="1728" Canvas.Top="338" Width="487">
+            <Canvas.Resources>
+                <Style TargetType="{x:Type Label}">
+                    <Setter Property="FontSize" Value="11"/>
+                    <Setter Property="Padding" Value="0"/>
+                    <Setter Property="Foreground"  Value="white"/>
+                    <Setter Property="BorderBrush" Value="White"/>
+                    <Setter Property="Effect">
+                        <Setter.Value>
+                            <DropShadowEffect Color="#FF04FFF4" BlurRadius="20" ShadowDepth="0" Direction="0"/>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </Canvas.Resources>
+            <Canvas.Background>
+                <SolidColorBrush Color="White" Opacity="0.15"/>
+            </Canvas.Background>
+
+            <TextBlock TextWrapping="Wrap" Text="Status" FontSize="16" Foreground="White" HorizontalAlignment="Left" VerticalAlignment="Center" Height="22" Width="60" Canvas.Left="7" Canvas.Top="4"/>
+            <StackPanel x:Name="stackPanel機器ステータス" Height="20" Canvas.Top="31" Width="399" Orientation="Horizontal" Canvas.Left="78">
+                <Label x:Name="labelEpx64" Content="EPX64S" Background="{Binding ColorEpx64}" BorderThickness="1" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Width="56"/>
+                <Label x:Name="label34461A" Content="HIOKI3239"  VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Background="{Binding Color323x}" BorderThickness="1" Width="69" />
+                <Label x:Name="labelPMX18" Content="SS7012"  VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Background="{Binding Color7012}" BorderThickness="1" Width="56" />
+                <Label x:Name="labelCamera1" Content="DS5107B"  VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Background="{Binding Color5107B}" BorderThickness="1" Width="56" />
+                <Label x:Name="labelCamera2" Content="Generator"  VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Background="{Binding ColorGenerator}" BorderThickness="1" Width="66" />
+            </StackPanel>
+            <TextBlock x:Name="textBlock2_Copy5" TextWrapping="Wrap" Text="周辺機器" FontSize="16" Foreground="White" HorizontalAlignment="Left" VerticalAlignment="Center" Height="21" Width="68" RenderTransformOrigin="0.5,0.5" Canvas.Top="30" Canvas.Left="7">
+                <TextBlock.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform/>
+                        <SkewTransform/>
+                        <RotateTransform/>
+                        <TranslateTransform/>
+                    </TransformGroup>
+                </TextBlock.RenderTransform>
+            </TextBlock>
+            <Label Content="" Height="1" Canvas.Left="6" Canvas.Top="25" Width="471" Background="#FF0388F7">
+                <Label.Effect>
+                    <DropShadowEffect Color="#FF09A0F7" Direction="0" ShadowDepth="0" BlurRadius="20"/>
+                </Label.Effect>
+            </Label>
+            <TextBlock x:Name="textBlock2_Copy11" TextWrapping="Wrap" Text="合格" FontSize="16" Foreground="#FF0DB2FF" HorizontalAlignment="Left" VerticalAlignment="Center" Height="21" Width="35" RenderTransformOrigin="0.5,0.5" Canvas.Top="3" Canvas.Left="174">
+                <TextBlock.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform/>
+                        <SkewTransform/>
+                        <RotateTransform/>
+                        <TranslateTransform/>
+                    </TransformGroup>
+                </TextBlock.RenderTransform>
+            </TextBlock>
+            <Label x:Name="labelStateRetry_Copy" Content="{Binding OkCount}" Height="24" Canvas.Left="210" Canvas.Top="1" Width="40" VerticalContentAlignment="Center" BorderThickness="1" BorderBrush="{x:Null}" FontSize="16"/>
+            <TextBlock x:Name="textBlock2_Copy12" TextWrapping="Wrap" Text="不合格" FontSize="16" Foreground="#FFBF08AF" HorizontalAlignment="Left" VerticalAlignment="Center" Height="21" Width="51" RenderTransformOrigin="0.5,0.5" Canvas.Top="3" Canvas.Left="256">
+                <TextBlock.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform/>
+                        <SkewTransform/>
+                        <RotateTransform/>
+                        <TranslateTransform/>
+                    </TransformGroup>
+                </TextBlock.RenderTransform>
+            </TextBlock>
+            <Label x:Name="labelStateRetry_Copy1" Content="{Binding NgCount}" Height="24" Canvas.Left="309" Canvas.Top="1" Width="40" VerticalContentAlignment="Center" BorderThickness="1" BorderBrush="{x:Null}" FontSize="16"/>
+
+        </Canvas>
+        <Label x:Name="labelMessage" Content="{Binding Message, Mode=TwoWay, NotifyOnTargetUpdated=True, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" Height="58" VerticalAlignment="Center" Width="472" Canvas.Left="7" Canvas.Top="2" FontSize="38" Foreground="White" VerticalContentAlignment="Center">
+            <Label.Effect>
+                <DropShadowEffect Color="#FF00FFF3" BlurRadius="20" Direction="0" ShadowDepth="0"/>
+            </Label.Effect>
+        </Label>
+        <Canvas Height="263" Canvas.Top="65" Width="373" Canvas.Left="8">
+            <Canvas.Resources>
+                <Style TargetType="{x:Type Label}">
+                    <Setter Property="FontSize" Value="11"/>
+                    <Setter Property="Padding" Value="0"/>
+                    <Setter Property="Foreground"  Value="white"/>
+                    <Setter Property="BorderBrush" Value="White"/>
+                    <Setter Property="Effect">
+                        <Setter.Value>
+                            <DropShadowEffect Color="#FF04FFF4" BlurRadius="20" ShadowDepth="0" Direction="0"/>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </Canvas.Resources>
+            <Canvas.Background>
+                <SolidColorBrush Color="White" Opacity="0.15"/>
+            </Canvas.Background>
+
+            <TextBox x:Name="tbTestLog" Height="220" Canvas.Left="8" TextWrapping="Wrap" Canvas.Top="33" Width="327" BorderBrush="{x:Null}" Foreground="White" Background="{x:Null}" VerticalScrollBarVisibility="Auto" SelectionBrush="{x:Null}" BorderThickness="0" CaretBrush="{x:Null}" IsReadOnly="True" FontSize="14" TextChanged="tbTestLog_TextChanged" Text="{Binding TestLog}">
+                <TextBox.Effect>
+                    <DropShadowEffect Color="#FF00E8FF" BlurRadius="15" Direction="0" ShadowDepth="0"/>
+                </TextBox.Effect>
+            </TextBox>
+            <TextBlock TextWrapping="Wrap" Text="テストログ" FontSize="16" Foreground="White" HorizontalAlignment="Left" VerticalAlignment="Center" Height="22" Width="100" Canvas.Left="12" Canvas.Top="4"/>
+            <Label Content="" Height="1" Canvas.Left="9" Canvas.Top="28" Width="351" Background="#FF0388F7">
+                <Label.Effect>
+                    <DropShadowEffect Color="#FF09A0F7" Direction="0" ShadowDepth="0" BlurRadius="20"/>
+                </Label.Effect>
+            </Label>
+            <Label x:Name="tbTestTime" Content="{Binding TestTime}" HorizontalAlignment="Left" VerticalAlignment="Center" Height="21" Width="63" Canvas.Left="297" FontSize="18" Foreground="White" FontFamily="Segoe UI Light" Padding="0" Canvas.Top="4"/>
+            <Label x:Name="labelStateRetry" Content="リトライ" Height="20" Canvas.Left="222" Width="59" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" BorderThickness="1" Canvas.Top="5" Background="#FF0C92F0" Visibility="{Binding RetryLabelVis}"/>
+        </Canvas>
+
+
+        <Canvas x:Name="canvasDecision" Height="326" Canvas.Top="338" Width="378" Canvas.Left="-3">
+            <Label x:Name="label判定" Height="128" Width="245" FontSize="94" FontStyle="Italic" RenderTransformOrigin="0.5,0.5" Foreground="{Binding Colorlabel判定}" Effect="{Binding ColorDecision}" Visibility="{Binding DecisionVisibility}" Margin="0" HorizontalAlignment="Center" Canvas.Left="65" Background="{x:Null}" VerticalAlignment="Top" Content="{Binding Decision}" HorizontalContentAlignment="Center" Canvas.Top="55">
+                <Label.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform ScaleX="1.5" ScaleY="1.8"/>
+                        <SkewTransform/>
+                        <RotateTransform/>
+                        <TranslateTransform X="1.2"/>
+                    </TransformGroup>
+                </Label.RenderTransform>
+            </Label>
+            <Canvas x:Name="stackPanelErrInfo" Canvas.Top="238" Visibility="{Binding ErrInfoVisibility}" RenderTransformOrigin="0.5,0.5" Height="87" Width="370" Canvas.Left="8">
+                <Label x:Name="labelエラー情報" Content="{Binding FailInfo}" FontSize="14" FontStyle="Italic" RenderTransformOrigin="0.5,0.5" Foreground="White" VerticalContentAlignment="Center" Effect="{Binding ColorDecision}" Height="26" Width="360"/>
+                <Label x:Name="label規格値" Content="{Binding Spec}" FontSize="14" FontStyle="Italic" Foreground="White" VerticalContentAlignment="Center" Effect="{Binding ColorDecision}" Height="27" Width="360" Canvas.Top="26" />
+                <Label x:Name="label計測値" Content="{Binding MeasValue}" FontSize="14" FontStyle="Italic" RenderTransformOrigin="0.5,0.5" Foreground="White" VerticalContentAlignment="Center" Effect="{Binding ColorDecision}" Height="26" Width="360" Canvas.Top="56" />
+                <Button x:Name="ButtonErrInfo" Content="詳細表示" Style="{DynamicResource SquareButtonStyle}" Height="36" Canvas.Top="47" Width="108" FontSize="14" Visibility="{Binding EnableButtonErrInfo}" Foreground="White" BorderBrush="#FFF50C8B" Canvas.Left="258" Click="ButtonErrInfo_Click" FontFamily="Century Gothic" FontWeight="Normal" BorderThickness="1">
+                    <Button.Background>
+                        <SolidColorBrush Color="#FFDC1682" Opacity="0.3"/>
+                    </Button.Background>
+                </Button>
+            </Canvas>
+        </Canvas>
+
+        <Canvas x:Name="canvasTestSetting" Height="58" Canvas.Left="1702" Canvas.Top="65" Width="454" IsEnabled="{Binding TestSettingEnable}">
+            <Canvas.Background>
+                <SolidColorBrush Color="White" Opacity="0.15"/>
+            </Canvas.Background>
+            <Canvas x:Name="canvasUnitTest" Height="34" Canvas.Left="162" Canvas.Top="19" Width="283" IsVisibleChanged="canvasUnitTest_IsVisibleChanged" IsEnabled="{Binding UnitTestEnable}">
+                <CheckBox x:Name="CheckBoxUnitTest" Content="単体試験" IsChecked="{Binding CheckUnitTest}" Height="27" Width="75" Background="White" Foreground="#FFFDFDFD" Canvas.Left="5" Canvas.Top="5"/>
+                <ComboBox x:Name="cbUnitTest" Height="27" Width="189" ItemsSource="{Binding UnitTestItems}" SelectedItem="{Binding UnitTestName}" BorderBrush="White" Canvas.Left="85" VerticalContentAlignment="Center" Canvas.Top="5" Background="{x:Null}"/>
+            </Canvas>
+            <CheckBox x:Name="CheckBoxWriteFw" Content="検査ソフト書き込みパス" Height="27" Width="138" Background="White" Foreground="#FFFDFDFD" Canvas.Left="7" IsChecked="{Binding CheckWriteTestFwPass}" Canvas.Top="23"/>
+            <TextBlock TextWrapping="Wrap" Text="テストオプション" FontSize="16" Foreground="White" HorizontalAlignment="Left" VerticalAlignment="Center" Height="21" Width="138" RenderTransformOrigin="0.5,0.5" Canvas.Top="2" Canvas.Left="7"/>
+        </Canvas>
+        <Canvas x:Name="canvasRing" Width="260" Height="260" Canvas.Left="65"  Opacity="{Binding RingOpacity}" Visibility="{Binding RingVisibility}" RenderTransformOrigin="0.5,0.5" Canvas.Top="368">
+
+            <ed:Arc x:Name="ProgressBack" ArcThickness="4" ArcThicknessUnit="Pixel" EndAngle="360" Fill="#FF758C99"  Canvas.Left="7" Stretch="None" StartAngle="0" Canvas.Top="6" Width="240" Height="240" Opacity="0.3"/>
+
+            <ed:Arc x:Name="ProgressRing" ArcThickness="4" ArcThicknessUnit="Pixel" Fill="#FFFBFBFB" Width="240" Height="240" Canvas.Left="7" Stretch="None" 
+				StartAngle="0" EndAngle="{Binding 進捗度, Converter={StaticResource AngleConverter}}" Canvas.Top="6">
+                <ed:Arc.Effect>
+                    <DropShadowEffect Color="#FF0072FB" Direction="0" ShadowDepth="0" BlurRadius="60"/>
+                </ed:Arc.Effect>
+
+            </ed:Arc>
+            <Label x:Name="labelProgress" Content="{Binding 進捗度, Converter={StaticResource ProgConverter}}" Canvas.Left="44" Canvas.Top="58" FontSize="60" RenderTransformOrigin="0.432,0.208" Width="166" HorizontalContentAlignment="Center" Height="100" FontFamily="Segoe UI Light" VerticalContentAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="0">
+                <Label.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform ScaleY="1.4"/>
+                        <SkewTransform/>
+                        <RotateTransform/>
+                        <TranslateTransform/>
+                    </TransformGroup>
+                </Label.RenderTransform>
+                <Label.Effect>
+                    <DropShadowEffect Color="#FF0BF0FB" BlurRadius="20" Direction="0" ShadowDepth="0"/>
+                </Label.Effect>
+            </Label>
+
+        </Canvas>
+        <Label Content="" Height="1" Canvas.Left="9" Canvas.Top="58" Width="431" Background="#FF0388F7">
+            <Label.Effect>
+                <DropShadowEffect Color="#FF09A0F7" Direction="0" ShadowDepth="0" BlurRadius="20"/>
+            </Label.Effect>
+        </Label>
+        <Canvas x:Name="CanvasComm232C" Height="106" Canvas.Left="1728" Canvas.Top="180" Width="552">
+            <Canvas.Resources>
+                <Style TargetType="{x:Type Label}">
+                    <Setter Property="FontSize" Value="11"/>
+                    <Setter Property="Width" Value="58"/>
+                    <Setter Property="Foreground"  Value="white"/>
+                    <Setter Property="BorderBrush" Value="White"/>
+                    <Setter Property="Effect">
+                        <Setter.Value>
+                            <DropShadowEffect Color="#FF04FFF4" BlurRadius="20" ShadowDepth="0" Direction="0"/>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+
+            </Canvas.Resources>
+            <Canvas.Background>
+                <SolidColorBrush Color="White" Opacity="0.15"/>
+            </Canvas.Background>
+            <TextBlock Text="{Binding RS232C_RX}" Height="58" Canvas.Left="30" Canvas.Top="38" Width="511" FontSize="12" Padding="5,0,0,0" TextWrapping="Wrap" Foreground="White">
+                <TextBlock.Background>
+                    <SolidColorBrush Color="#FF00A2FF" Opacity="0.2"/>
+                </TextBlock.Background>
+            </TextBlock>
+            <TextBlock x:Name="textBlock2_Copy2" TextWrapping="Wrap" Text="RS232C/BlueTooth通信" FontSize="16" Foreground="White" HorizontalAlignment="Left" VerticalAlignment="Center" Height="21" Width="184" RenderTransformOrigin="0.5,0.5" Canvas.Top="5" Canvas.Left="8">
+
+            </TextBlock>
+            <Label Content="" Height="1" Canvas.Left="8" Canvas.Top="26" Width="533" Background="#FF0388F7">
+                <Label.Effect>
+                    <DropShadowEffect Color="#FF09A0F7" Direction="0" ShadowDepth="0" BlurRadius="20"/>
+                </Label.Effect>
+            </Label>
+        </Canvas>
+        <Controls:ProgressRing x:Name="RingWait" Canvas.Left="112" Canvas.Top="146" Height="78" Width="78" IsActive="{Binding IsActiveRing}">
+            <!--<Controls:ProgressRing.Effect>
+                <DropShadowEffect Color="#FFF7F9F9" Direction="0" ShadowDepth="0" BlurRadius="10"/>
+            </Controls:ProgressRing.Effect>-->
+            <Controls:ProgressRing.Foreground>
+                <SolidColorBrush Color="#CC1BC1FF" Opacity="0.3"/>
+            </Controls:ProgressRing.Foreground>
+        </Controls:ProgressRing>
+        <Button x:Name="ButtonStop" Content="強制停止" Controls:ControlsHelper.ContentCharacterCasing="Normal" HorizontalAlignment="Center" VerticalAlignment="Center" Height="56" Width="139" BorderBrush="#FFABD6EA" FontSize="22" Canvas.Left="1785" Style="{DynamicResource AccentedSquareButtonStyle}" BorderThickness="1" ClipToBounds="True" Canvas.Top="440" RenderTransformOrigin="11.977,3.9" FontFamily="Segoe UI Light" Click="ButtonStop_Click" Opacity="{Binding StopButtonVis}" IsEnabled="{Binding StopButtonEnable}" >
+            <Button.Background>
+                <SolidColorBrush Color="#FF125191" Opacity="0.6"/>
+            </Button.Background>
+        </Button>
+
+
+
+
+
+
+
+
+    </Canvas>
+</Page>
