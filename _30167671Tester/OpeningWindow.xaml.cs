@@ -17,16 +17,18 @@ namespace _30167671Tester
 
         private void label30167671_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
-            State.testMode = TEST_MODE._30167671;
+            State.TestItem = ITEM._30167671;
             var pwaTestWin = new MainWindow();
+            State.VmMainWindow.Model = "30167671000";
             pwaTestWin.Show();
             this.Close();
         }
 
         private void label30221500_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
-            State.testMode = TEST_MODE._30221500;
+            State.TestItem = ITEM._30221500;
             var pwaTestWin = new MainWindow();
+            State.VmMainWindow.Model = "30221500000";
             pwaTestWin.Show();
             this.Close();
         }

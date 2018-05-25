@@ -123,8 +123,17 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="DialogInput.xaml.cs">
+      <DependentUpon>DialogInput.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Dialog出力回路.xaml.cs">
+      <DependentUpon>Dialog出力回路.xaml</DependentUpon>
+    </Compile>
     <Compile Include="DialogPic.xaml.cs">
       <DependentUpon>DialogPic.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Page\ErrInfo\ErrInfoWav.xaml.cs">
+      <DependentUpon>ErrInfoWav.xaml</DependentUpon>
     </Compile>
     <Compile Include="Page\Test\Test.xaml.cs">
       <DependentUpon>Test.xaml</DependentUpon>
@@ -157,17 +166,36 @@
       <DependentUpon>VerInfo.xaml</DependentUpon>
     </Compile>
     <Compile Include="Utility\Constants.cs" />
-    <Compile Include="Utility\DS-5107B.cs" />
-    <Compile Include="Utility\EPX64R.cs" />
     <Compile Include="Utility\FindSerialPort.cs" />
+    <Compile Include="Utility\FlashDevelopmentToolkit.cs" />
+    <Compile Include="ViewModel\ViewModelMente.cs" />
+    <Compile Include="テスト項目\TEST_2線式液漏れセンサ回路.cs" />
+    <Compile Include="テスト項目\TEST_AD入力チェック.cs" />
+    <Compile Include="テスト項目\TEST_PT100.cs" />
+    <Compile Include="テスト項目\TEST_PT100センサ断線.cs" />
+    <Compile Include="テスト項目\TEST_SCR駆動回路.cs" />
+    <Compile Include="テスト項目\TEST_VREF.cs" />
+    <Compile Include="テスト項目\TEST_パルス入力回路.cs" />
+    <Compile Include="テスト項目\TEST_入力回路チェック.cs" />
+    <Compile Include="テスト項目\TEST_出力回路.cs" />
+    <Compile Include="テスト項目\TEST_比例弁回転動作.cs" />
+    <Compile Include="テスト項目\TEST_警報点.cs" />
+    <Compile Include="テスト項目\TEST_通信.cs" />
+    <Compile Include="テスト項目\TEST_電圧入力回路.cs" />
+    <Compile Include="テスト項目\TEST_電流入力回路.cs" />
+    <Compile Include="テスト項目\TEST_電源電圧チェック.cs" />
+    <Compile Include="テスト項目\書き込み.cs" />
+    <Compile Include="周辺機器\DS-5107B.cs" />
+    <Compile Include="周辺機器\EPX64R.cs" />
     <Compile Include="Utility\Flags.cs" />
     <Compile Include="Utility\General.cs" />
     <Compile Include="Utility\GeneralTimer.cs" />
-    <Compile Include="Utility\Hioki3239.cs" />
-    <Compile Include="Utility\HIOKI7012.cs" />
+    <Compile Include="周辺機器\Hioki3239.cs" />
+    <Compile Include="周辺機器\HIOKI7012.cs" />
     <Compile Include="Utility\State.cs" />
     <Compile Include="Utility\Target.cs" />
-    <Compile Include="Utility\WaveFormGenerator.cs" />
+    <Compile Include="周辺機器\IOscilloscope.cs" />
+    <Compile Include="周辺機器\WaveFormGenerator.cs" />
     <Compile Include="ViewModel\AngleConverter.cs" />
     <Compile Include="ViewModel\ProgressConverter.cs" />
     <Compile Include="ViewModel\TestCommand.cs" />
@@ -178,6 +206,14 @@
     <Compile Include="ViewModel\ViewModelTestStatus.cs" />
     <Compile Include="検査規格\Configuration.cs" />
     <Compile Include="検査規格\TestSpec.cs" />
+    <Page Include="DialogInput.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Dialog出力回路.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="DialogPic.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -211,6 +247,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Page\Config\Theme.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Page\ErrInfo\ErrInfoWav.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -266,6 +306,14 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="Resources\Pic\ai.png" />
+    <Resource Include="Resources\Pic出力回路\Interlock1.jpg" />
+    <Resource Include="Resources\Pic出力回路\Interlock2.jpg" />
+    <Resource Include="Resources\Pic出力回路\Interlock30167671.jpg" />
+    <Resource Include="Resources\Pic出力回路\その他点灯_.jpg" />
+    <Resource Include="Resources\Pic出力回路\基板LED点灯_.jpg" />
+    <Resource Include="Resources\Pic出力回路\汎用出力12点灯_.jpg" />
+    <Resource Include="Resources\Pic出力回路\Interlock30221500.jpg" />
     <Resource Include="Resources\Pic\baby3.jpg" />
     <Resource Include="Resources\Pic\baby1.jpg" />
     <Resource Include="Resources\Pic\baby2.jpg" />
@@ -273,29 +321,59 @@
     <Resource Include="Resources\Pic\non.png" />
     <Resource Include="Resources\Pic\non2.png" />
     <Resource Include="Resources\Pic\30167671シルク図.jpg" />
-    <Content Include="Resources\Wav\108_96.wav" />
-    <Content Include="Resources\Wav\123_24.wav" />
-    <Content Include="Resources\Wav\149_83.wav" />
-    <Content Include="Resources\Wav\183_19.wav" />
-    <Content Include="Resources\Wav\Alarm.wav" />
+    <Content Include="Resources\Wav\108_96.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Wav\123_24.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Wav\149_83.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Wav\183_19.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Wav\Alarm.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Resource Include="Resources\Pic\baby4.jpg" />
-    <Content Include="Resources\Wav\Battery.wav" />
-    <Content Include="Resources\Wav\bgm01.wav" />
-    <Content Include="Resources\Wav\BGM_Label.wav" />
-    <Content Include="Resources\Wav\Continue.wav" />
-    <Content Include="Resources\Wav\bgm02.wav" />
-    <Content Include="Resources\Wav\CutIn.wav" />
-    <Content Include="Resources\Wav\Totsugeki.wav" />
+    <Content Include="Resources\Wav\Battery.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Wav\bgm01.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Wav\BGM_Label.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Wav\Continue.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Wav\bgm02.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Wav\CutIn.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Wav\NewVictory.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Wav\Totsugeki.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Resource Include="Resources\Pic\VisualStudio_32x.png" />
     <Resource Include="Resources\Pic\Azbil_logo.png" />
-    <Content Include="Resources\Wav\Fail.wav" />
-    <Content Include="Resources\Wav\Kuru.wav" />
-    <Content Include="Resources\Wav\Notice.wav" />
+    <Content Include="Resources\Wav\Fail.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Wav\Kuru.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Wav\Notice.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Page\ErrInfo\" />
-    <Folder Include="テスト項目\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <COMReference Include="Microsoft.Office.Core">
       <Guid>{2DF8D04C-5BFA-101B-BDE5-00AA0044DE52}</Guid>
@@ -324,19 +402,10 @@
       <Isolated>False</Isolated>
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </COMReference>
-    <COMReference Include="VBIDE">
-      <Guid>{0002E157-0000-0000-C000-000000000046}</Guid>
-      <VersionMajor>5</VersionMajor>
-      <VersionMinor>3</VersionMinor>
-      <Lcid>0</Lcid>
-      <WrapperTool>primary</WrapperTool>
-      <Isolated>False</Isolated>
-      <EmbedInteropTypes>True</EmbedInteropTypes>
-    </COMReference>
     <COMReference Include="VisaComLib">
       <Guid>{DB8CBF00-D6D3-11D4-AA51-00A024EE30BD}</Guid>
       <VersionMajor>5</VersionMajor>
-      <VersionMinor>5</VersionMinor>
+      <VersionMinor>2</VersionMinor>
       <Lcid>0</Lcid>
       <WrapperTool>primary</WrapperTool>
       <Isolated>False</Isolated>

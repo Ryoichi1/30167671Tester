@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace _30167671Tester
 {
-    public enum TEST_MODE { _30167671, _30221500 }
+    public enum ITEM { _30167671, _30221500 }
 
     public class TestSpecs
     {
@@ -12,7 +12,7 @@ namespace _30167671Tester
         public string Value;
         public bool PowSw;
 
-        public TestSpecs(int key, string value, bool powSW = true)
+        public TestSpecs(int key, string value, bool powSW = false)
         {
             this.Key = key;
             this.Value = value;
@@ -23,13 +23,13 @@ namespace _30167671Tester
 
     public static class State
     {
-        public static TEST_MODE testMode { get; set; }
+        public static ITEM TestItem { get; set; }
 
         //データソース（バインディング用）
         public static ViewModelMainWindow VmMainWindow = new ViewModelMainWindow();
         public static ViewModelTestStatus VmTestStatus = new ViewModelTestStatus();
         public static ViewModelTestResult VmTestResults = new ViewModelTestResult();
-
+        public static ViewModelMente VmMente = new ViewModelMente();
         public static ViewModelCommunication VmComm = new ViewModelCommunication();
         public static TestCommand testCommand = new TestCommand();
 
@@ -51,65 +51,113 @@ namespace _30167671Tester
 
         public static int NewSerial { get; set; }
 
-
+        public static string シリアルナンバー年月部分 { get; set; }
 
 
         //リトライ履歴保存用リスト
         public static List<string> RetryLogList = new List<string>();
 
-        //検査成績書関連
-        public static List<string> testDataPWA = new List<string>();
-
-
 
         public static List<TestSpecs> テスト項目 = new List<TestSpecs>()
         {
-            new TestSpecs(100, "コネクタ実装チェック", false),
-            new TestSpecs(101, "CN4未半田チェック1", false),
-            new TestSpecs(102, "CN4未半田チェック2", false),
-            new TestSpecs(103, "JP1短絡ソケットチェック", false),
+            //new TestSpecs(100, "コネクタ実装チェック"),
 
-            new TestSpecs(200, "検査ソフト書き込み", false),
+            //new TestSpecs(200, "ファームウェア書き込み"),
 
-            new TestSpecs(300, "3Vライン消費電流チェック", false),
-            new TestSpecs(301, "6Vライン消費電流チェック", false),
-            new TestSpecs(302, "電源電圧チェック 5V", false),
-            new TestSpecs(303, "電源電圧チェック 3.3V", true),
-            new TestSpecs(304, "CN3 出力電圧チェック", true),
-            new TestSpecs(305, "CN9On出力電圧チェック", true),
-            new TestSpecs(306, "CN9Off出力電圧チェック", true),
+            new TestSpecs(300, "電源電圧ﾁｪｯｸ +12V", true),
+            //new TestSpecs(301, "電源電圧ﾁｪｯｸ +5V", true),
+            //new TestSpecs(302, "電源電圧ﾁｪｯｸ +3.3V", true),
+            //new TestSpecs(303, "電源電圧ﾁｪｯｸ AVDD_12V", true),
+            //new TestSpecs(304, "電源電圧ﾁｪｯｸ AVCC_5V", true),
+            //new TestSpecs(305, "電源電圧ﾁｪｯｸ VREF", true),
+            //new TestSpecs(306, "電源電圧ﾁｪｯｸ AVCCD_5V", true),
+            //new TestSpecs(307, "電源電圧ﾁｪｯｸ S_5V", true),
 
-            new TestSpecs(400, "粒LEDカラーチェック", false),
-            new TestSpecs(401, "粒LED輝度チェック", true),
-            new TestSpecs(402, "7セグ 輝度チェック", true),
-            new TestSpecs(403, "7セグ 点灯チェック", true),
+            //new TestSpecs(400, "入力回路ﾁｪｯｸ　OFF"),
+            //new TestSpecs(401, "入力回路ﾁｪｯｸ　ON"),
 
-            new TestSpecs(500, "Bluetooth通信確認", true),
-            new TestSpecs(501, "AT通信確認", true),
-            new TestSpecs(502, "増設子機有りに設定", true),
-            new TestSpecs(503, "RS485通信確認1", true),
-            new TestSpecs(504, "RS485通信確認2", true),
+            //new TestSpecs(500, "ANﾎﾟｰﾄﾃﾞｼﾞﾀﾙ入力ﾁｪｯｸ　LOW"),
+            //new TestSpecs(501, "ANﾎﾟｰﾄﾃﾞｼﾞﾀﾙ入力ﾁｪｯｸ　HIGH"),
 
-            new TestSpecs(600, "SW1-SW4チェック", true),
+            //new TestSpecs(600, "SCR駆動回路ﾁｪｯｸ　位相制御ﾓｰﾄﾞ"),
+            //new TestSpecs(601, "SCR駆動回路ﾁｪｯｸ　ｻｲｸﾙ制御ﾓｰﾄﾞ", true),
 
-            new TestSpecs(700, "カレントセンサチェック", true),
+            //new TestSpecs(700, "AD入力回路ﾁｪｯｸ　AN_A8"),
+            //new TestSpecs(701, "AD入力回路ﾁｪｯｸ　AN_A4"),
+            //new TestSpecs(702, "AD入力回路ﾁｪｯｸ　AN_A0"),
+            //new TestSpecs(703, "AD入力回路ﾁｪｯｸ　AN_A9"),
+            //new TestSpecs(704, "AD入力回路ﾁｪｯｸ　AN_A5"),
+            //new TestSpecs(705, "AD入力回路ﾁｪｯｸ　AN_A1"),
+            //new TestSpecs(706, "AD入力回路ﾁｪｯｸ　AN_A10"),
+            //new TestSpecs(707, "AD入力回路ﾁｪｯｸ　AN_A6"),
+            //new TestSpecs(708, "AD入力回路ﾁｪｯｸ　AN_A2"),
+            //new TestSpecs(709, "AD入力回路ﾁｪｯｸ　AN_A11"),
+            //new TestSpecs(710, "AD入力回路ﾁｪｯｸ　AN_A7"),
+            //new TestSpecs(711, "AD入力回路ﾁｪｯｸ　AN_A3"),
 
-            new TestSpecs(800, "サーミスタ調整 5℃", true),
-            new TestSpecs(801, "サーミスタチェック", true),
-            new TestSpecs(802, "サーミスタ開放チェック", false),
-            new TestSpecs(803, "サーミスタ短絡チェック", false),
+            //new TestSpecs(800, "ﾊﾟﾙｽ入力回路ﾁｪｯｸ　左"),
+            //new TestSpecs(801, "ﾊﾟﾙｽ入力回路ﾁｪｯｸ　中"),
+            //new TestSpecs(802, "ﾊﾟﾙｽ入力回路ﾁｪｯｸ　右"),
 
-            new TestSpecs(900, "電源基板SW2チェック", true),
+            //new TestSpecs(900, "比例弁回転動作ﾁｪｯｸ　ﾓｰﾀAB左回転"),
+            //new TestSpecs(901, "比例弁回転動作ﾁｪｯｸ　ﾓｰﾀAB右回転"),
 
-            new TestSpecs(1000, "停電検出チェック", true),
+            //new TestSpecs(1000, "警報用Pt100回路ﾁｪｯｸ　発報点ﾁｪｯｸ"),
+            //new TestSpecs(1001, "断線ﾁｪｯｸ"),
 
-            new TestSpecs(1100, "バッテリLowチェック", true),
+            //new TestSpecs(1100, "AC電源電圧読取り回路ﾁｪｯｸ"),
 
-            new TestSpecs(1200, "警報リレー出力チェック", true),
+            //new TestSpecs(1200, "負荷電流読取り回路ﾁｪｯｸ　CT1"),
+            //new TestSpecs(1201, "負荷電流読取り回路ﾁｪｯｸ　CT2"),
 
-            new TestSpecs(1300, "パラメータチェック", true),
+            //new TestSpecs(1300, "RS232C通信ﾁｪｯｸ"),
+            //new TestSpecs(1301, "RS485通信ﾁｪｯｸ（絶縁）"),
+            //new TestSpecs(1302, "RS485通信ﾁｪｯｸ（非絶縁）"),
+            //new TestSpecs(1303, "表示基板通信ﾁｪｯｸ"),
 
-            new TestSpecs(1400, "RTCチェック", true),
+            //new TestSpecs(1400, "Vref調整"),
+            //new TestSpecs(1401, "Vref調整(再)"),
+
+            //new TestSpecs(1500, "出力回路ﾁｪｯｸ　ﾃﾞｼﾞﾀﾙ出力"),
+
+            //new TestSpecs(1600, "出力回路ﾁｪｯｸ 電流温度ﾓﾆﾀ1"),
+            //new TestSpecs(1601, "出力回路ﾁｪｯｸ 電流温度ﾓﾆﾀ2"),
+
+            //new TestSpecs(1700, "出力回路ﾁｪｯｸ 電圧温度ﾓﾆﾀ1"),
+            //new TestSpecs(1701, "出力回路ﾁｪｯｸ 電圧温度ﾓﾆﾀ2"),
+
+            //new TestSpecs(1800, "出力回路ﾁｪｯｸ ｲﾝﾊﾞｰﾀ回転指令"),
+
+            //new TestSpecs(1900, "出力回路ﾁｪｯｸ 出力電流1"),
+            //new TestSpecs(1901, "出力回路ﾁｪｯｸ 出力電流2"),
+            //new TestSpecs(1902, "出力回路ﾁｪｯｸ 出力電流3"),
+            //new TestSpecs(1903, "出力回路ﾁｪｯｸ 出力電流4"),
+
+            //new TestSpecs(2000, "出力回路ﾁｪｯｸ 出力電圧1"),
+            //new TestSpecs(2001, "出力回路ﾁｪｯｸ 出力電圧2"),
+            //new TestSpecs(2002, "出力回路ﾁｪｯｸ 出力電圧3"),
+            //new TestSpecs(2003, "出力回路ﾁｪｯｸ 出力電圧4"),
+
+            //new TestSpecs(2100, "Pt100ｾﾝｻｰ回路調整 PV1,2"),
+
+            //new TestSpecs(2200, "Pt100ｾﾝｻｰ回路調整 PV3,4"),
+
+            //new TestSpecs(2600, "Pt100ｾﾝｻｰ断線ﾁｪｯｸ Normal"),
+            //new TestSpecs(2601, "Pt100ｾﾝｻｰ断線ﾁｪｯｸ A線断線"),
+            //new TestSpecs(2602, "Pt100ｾﾝｻｰ断線ﾁｪｯｸ B線断線"),
+            //new TestSpecs(2603, "Pt100ｾﾝｻｰ断線ﾁｪｯｸ B'線断線"),
+
+            //new TestSpecs(2700, "電流入力回路I-1"),
+            //new TestSpecs(2701, "電流入力回路I-2"),
+            //new TestSpecs(2702, "電流入力回路I-3"),
+            //new TestSpecs(2703, "電流入力回路I-4"),
+
+            //new TestSpecs(2800, "電圧入力回路V-1"),
+            //new TestSpecs(2801, "電圧入力回路V-2"),
+            //new TestSpecs(2802, "電圧入力回路V-3"),
+            //new TestSpecs(2803, "電圧入力回路V-4"),
+
+            //new TestSpecs(2900, "2線式液漏れｾﾝｻ回路"),
 
         };
 

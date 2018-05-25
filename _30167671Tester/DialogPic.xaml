@@ -9,7 +9,7 @@
         BorderThickness="2"
         ShowTitleBar="False"
         mc:Ignorable="d"
-        Height="532.5" Width="703.167" WindowStartupLocation="CenterScreen" AllowsTransparency="True" WindowStyle="None" Icon="Resources/Pic/VisualStudio_32x.png" BorderBrush="#FF0A89F1" Padding="0" Margin="0,0,700,0" WindowTransitionsEnabled="False" Loaded="metroWindow_Loaded" ShowCloseButton="False" ShowMinButton="False" ShowMaxRestoreButton="False" >
+        Height="759.348" Width="1175.397" WindowStartupLocation="CenterScreen" AllowsTransparency="True" WindowStyle="None" Icon="Resources/Pic/VisualStudio_32x.png" BorderBrush="#FF0A89F1" Padding="0" Margin="0,0,700,0" WindowTransitionsEnabled="False" Loaded="metroWindow_Loaded" ShowCloseButton="False" ShowMinButton="False" ShowMaxRestoreButton="False" >
     <Controls:MetroWindow.Resources>
         <Storyboard x:Key="sbDialogShow">
             <ThicknessAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Margin)" Storyboard.TargetName="metroWindow">
@@ -30,10 +30,10 @@
 
 
     <Canvas x:Name="MainBack" Background="#FFE2E1C7">
-        <Label x:Name="labelMessage"  Height="76" Canvas.Left="22" Canvas.Top="390" Width="653" Foreground="#FF0A89F1" FontSize="24"/>
-        <Button x:Name="ButtonOk" Content="OK" Controls:ControlsHelper.ContentCharacterCasing="Normal" Style="{DynamicResource SquareButtonStyle}" Height="42" Canvas.Top="475" Width="140" FontSize="24" Foreground="#FF0A89F1" BorderBrush="#FF0A89F1" Background="{x:Null}" Canvas.Left="23" FontFamily="Meiryo UI" FontWeight="Normal" BorderThickness="1" Click="ButtonOk_Click" GotFocus="ButtonOk_GotFocus" TabIndex="1" LostFocus="ButtonOk_LostFocus" MouseEnter="ButtonOk_MouseEnter" MouseLeave="ButtonOk_MouseLeave"/>
-        <Button x:Name="ButtonCancel" Content="CANCEL" Controls:ControlsHelper.ContentCharacterCasing="Normal" Style="{DynamicResource SquareButtonStyle}" Height="42" Canvas.Top="475" Width="138" FontSize="24" Foreground="#FF0A89F1" BorderBrush="#FF0A89F1" Background="{x:Null}" Canvas.Left="190" FontFamily="Meiryo UI" FontWeight="Normal" BorderThickness="1" Click="ButtonCancel_Click" GotFocus="ButtonCancel_GotFocus" TabIndex="2" LostFocus="ButtonCancel_LostFocus" MouseEnter="ButtonCancel_MouseEnter" MouseLeave="ButtonCancel_MouseLeave"/>
-        <Image x:Name="imagePic" Height="360" Canvas.Left="22" Canvas.Top="24" Width="640"/>
+        <Label x:Name="labelMessage"  Height="275" Canvas.Left="11" Canvas.Top="399" Width="1150" Foreground="Black" FontSize="36"/>
+        <Button x:Name="ButtonOk" Content="OK" Controls:ControlsHelper.ContentCharacterCasing="Normal" Style="{DynamicResource SquareButtonStyle}" Height="42" Canvas.Top="679" Width="140" FontSize="24" Foreground="#FF0A89F1" BorderBrush="#FF0A89F1" Background="{x:Null}" Canvas.Left="23" FontFamily="Meiryo UI" FontWeight="Normal" BorderThickness="1" Click="ButtonOk_Click" TabIndex="1" LostFocus="ButtonOk_LostFocus" GotFocus="ButtonOk_GotFocus" MouseEnter="ButtonOk_MouseEnter" MouseLeave="ButtonOk_MouseLeave"/>
+        <Button x:Name="ButtonCancel" Content="CANCEL" Controls:ControlsHelper.ContentCharacterCasing="Normal" Style="{DynamicResource SquareButtonStyle}" Height="42" Canvas.Top="679" Width="138" FontSize="24" Foreground="#FF0A89F1" BorderBrush="#FF0A89F1" Background="{x:Null}" Canvas.Left="205" FontFamily="Meiryo UI" FontWeight="Normal" BorderThickness="1" Click="ButtonCancel_Click" GotFocus="ButtonCancel_GotFocus" TabIndex="2" LostFocus="ButtonCancel_LostFocus" MouseEnter="ButtonCancel_MouseEnter" MouseLeave="ButtonCancel_MouseLeave"/>
+        <Image x:Name="imagePic" Height="384" Canvas.Left="10" Canvas.Top="10" Width="791"/>
 
     </Canvas>
 

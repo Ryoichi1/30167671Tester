@@ -103,6 +103,12 @@ namespace _30167671Tester
             get { return _Opecode; }
             set { SetProperty(ref _Opecode, value); }
         }
+        private string _Model;
+        public string Model
+        {
+            get { return _Model; }
+            set { SetProperty(ref _Model, value); }
+        }
 
         private bool _ReadOnlyOpecode;
         public bool ReadOnlyOpecode

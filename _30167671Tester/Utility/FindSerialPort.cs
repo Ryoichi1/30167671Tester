@@ -19,8 +19,7 @@ namespace _30167671Tester
     {
         public static List<ComPortStatus> deviceNameList;
 
-        // アプリケーション立ち上げ時に１回だけ呼び出す
-        static FindSerialPort()
+        public static void GetDeviceNames()
         {
             deviceNameList = new List<ComPortStatus>();
             var check = new System.Text.RegularExpressions.Regex("(COM[1-9][0-9]?[0-9]?)");

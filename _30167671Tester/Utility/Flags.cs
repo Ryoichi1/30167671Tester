@@ -1,4 +1,6 @@
 ﻿using System.Windows.Media;
+using static _30167671Tester.General;
+
 
 namespace _30167671Tester
 {
@@ -32,19 +34,12 @@ namespace _30167671Tester
         public static bool ShowLabelPage { get; set; }
 
         private static SolidColorBrush RetryPanelBrush = new SolidColorBrush();
-        private static SolidColorBrush StatePanelOkBrush = new SolidColorBrush();
-        private static SolidColorBrush StatePanelNgBrush = new SolidColorBrush();
         private const double StatePanelOpacity = 0.3;
 
         static Flags()
         {
             RetryPanelBrush.Color = Colors.DodgerBlue;
             RetryPanelBrush.Opacity = StatePanelOpacity;
-
-            StatePanelOkBrush.Color = Colors.DodgerBlue;
-            StatePanelOkBrush.Opacity = StatePanelOpacity;
-            StatePanelNgBrush.Color = Colors.DeepPink;
-            StatePanelNgBrush.Opacity = StatePanelOpacity;
         }
 
         //周辺機器ステータス
@@ -55,7 +50,7 @@ namespace _30167671Tester
             set
             {
                 _StateEpx64 = value;
-                State.VmTestStatus.ColorEpx64 = value ? StatePanelOkBrush : StatePanelNgBrush;
+                State.VmTestStatus.ColorEpx64 = value ? OkBrush : NgBrush;
             }
         }
 
@@ -66,7 +61,7 @@ namespace _30167671Tester
             set
             {
                 _State7012 = value;
-                State.VmTestStatus.Color7012 = value ? StatePanelOkBrush : StatePanelNgBrush;
+                State.VmTestStatus.Color7012 = value ? OkBrush : NgBrush;
             }
         }
 
@@ -77,7 +72,7 @@ namespace _30167671Tester
             set
             {
                 _State5107B = value;
-                State.VmTestStatus.Color5107B = value ? StatePanelOkBrush : StatePanelNgBrush;
+                State.VmTestStatus.Color5107B = value ? OkBrush : NgBrush;
             }
         }
 
@@ -88,7 +83,7 @@ namespace _30167671Tester
             set
             {
                 _State323x = value;
-                State.VmTestStatus.Color323x = value ? StatePanelOkBrush : StatePanelNgBrush;
+                State.VmTestStatus.Color323x = value ? OkBrush : NgBrush;
             }
         }
 
@@ -100,7 +95,7 @@ namespace _30167671Tester
             set
             {
                 _StateWavGen = value;
-                State.VmTestStatus.ColorGenerator = value ? StatePanelOkBrush : StatePanelNgBrush;
+                State.VmTestStatus.ColorGenerator = value ? OkBrush : NgBrush;
             }
         }
 

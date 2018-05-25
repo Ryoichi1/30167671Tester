@@ -48,13 +48,14 @@ namespace _30167671Tester
             //試験用パラメータのロード
             State.LoadConfigData();
 
+            FindSerialPort.GetDeviceNames();
             General.Init周辺機器();//非同期処理です
 
 
 
             InitMainForm();//メインフォーム初期
 
-            //this.WindowState = WindowState.Maximized;
+            this.WindowState = WindowState.Maximized;
 
             //メタルモード設定（デフォルトは禁止とする）
             Flags.MetalModeSw = false;
@@ -69,6 +70,8 @@ namespace _30167671Tester
             {
                 while (Flags.Initializing周辺機器) ;
 
+                Target.ClosePort();
+
                 if (Flags.StateEpx64)
                 {
                     General.ResetIo();
@@ -77,7 +80,7 @@ namespace _30167671Tester
 
                 if (Flags.State5107B)
                 {
-                    DS_5107B.ClosePort();
+                    General.osc.Close();
                 }
 
                 if (Flags.State323x)
@@ -168,9 +171,9 @@ namespace _30167671Tester
 
         private void tbOpecode_TextChanged(object sender, TextChangedEventArgs e)
         {
-            //１文字入力されるごとに、タイマーを初期化する
-            timerTextInput.Stop();
-            timerTextInput.Start();
+            ////１文字入力されるごとに、タイマーを初期化する
+            //timerTextInput.Stop();
+            //timerTextInput.Start();
 
             if (State.VmMainWindow.Opecode.Length != 13) return;
             //以降は工番が正しく入力されているかどうかの判定
@@ -180,41 +183,47 @@ namespace _30167671Tester
             {
                 timerTextInput.Stop();
                 Flags.SetOpecode = true;
-                string dataFilePath = Constants.PassData30167671FolderPath + State.VmMainWindow.Opecode + ".csv";
 
+                var testDataPath = State.TestItem == ITEM._30167671 ? Constants.PassDataPath_30167671 : Constants.PassDataPath_30221500;
+                //確定した工番の既存データファイルを検索してシリアルナンバーを決定する
+                string dataFilePath = testDataPath + State.VmMainWindow.Opecode + ".csv";
                 // 入力した工番の検査データが存在しているかどうか確認する
-                if (!System.IO.File.Exists(dataFilePath))
-                {
-                    //データファイルが存在しなければ、必然的にシリアルナンバーは001です
-                    //西暦・月の部分は、Cinfigurationで設定した値を読み込む（生産ロットが切り替わる度に作業者が設定を行う必要がある）
-                    State.NewSerial = 1;
-                    return;
-                }
 
-
-                //データファイルが存在するなら、ファイルを開いて最終シリアルナンバーをロードする
-                if (State.LoadLastSerial(dataFilePath))
+                string lastSerial;
+                string 年月部分;
+                string 連番部分;
+                if (System.IO.File.Exists(dataFilePath)) //データファイルが存在するなら、ファイルを開いて最終シリアルナンバーをロードする
                 {
                     try
                     {
-                        // State.LastSerialの例  1736Ne001番
-                        var buff = State.LastSerial.Substring(6);//連番部分を抽出
-                        int lastSerial = Int32.Parse(buff);
-                        State.NewSerial = lastSerial + 1;
-                        State.VmMainWindow.SerialNumber = State.LastSerial.Substring(0, 6) + State.NewSerial.ToString("D3");
+                        lastSerial = General.LoadSerial(dataFilePath, State.VmMainWindow.Opecode);//lastSerialゲット
+                        年月部分 = lastSerial.Substring(0, 4);//lastSerialから西暦月部分を切り取り
+                        連番部分 = lastSerial.Substring(4, 5);//lastSerialから連番部分を切り取り
+
+                        State.シリアルナンバー年月部分 = 年月部分;
+                        State.NewSerial = Int32.Parse(連番部分) + 1;
+                        State.VmMainWindow.SerialNumber = State.シリアルナンバー年月部分 + State.NewSerial.ToString("D5");
                     }
                     catch
                     {
-                        MessageBox.Show("シリアルナンバーの取得に失敗しました");
+                        MessageBox.Show("シリアルナンバーの取得に失敗しました！");
                         Flags.SetOpecode = false;
+                        return;
                     }
-                }
-                else
-                {
-                    MessageBox.Show("シリアルナンバーの取得に失敗しました");
-                    Flags.SetOpecode = false;
+
 
                 }
+                else //データファイルが存在しなければ・・・
+                {
+                    State.シリアルナンバー年月部分 = System.DateTime.Now.ToString("yyMM");
+                    State.NewSerial = 1;
+                    State.VmMainWindow.SerialNumber = State.シリアルナンバー年月部分 + State.NewSerial.ToString("D5");
+                }
+
+            }
+            else
+            {
+                Flags.SetOpecode = false;
             }
         }
 

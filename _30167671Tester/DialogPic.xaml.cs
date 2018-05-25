@@ -11,33 +11,39 @@ namespace _30167671Tester
     /// </summary>
     public partial class DialogPic
     {
-        public enum TEST_NAME { LED1点灯, LD1a点灯, 予備バッテリー }
+        public enum NAME { 書き込みコネクタ, 通信線取り外し, SW1設定_003, CN11入れ替え, その他 }
 
-        TEST_NAME testName;
+        NAME testName;
         string PicName = "";
+        bool soundSw;
 
-        public DialogPic(string mess, TEST_NAME name)
+        public DialogPic(string mess, NAME name, bool soundSw = true)
         {
             InitializeComponent();
 
             this.MouseLeftButtonDown += (sender, e) => this.DragMove();//ウィンドウ全体でドラッグ可能にする
 
             this.DataContext = State.VmTestStatus;
+            this.soundSw = soundSw;
             labelMessage.Content = mess;
             testName = name;
 
             switch (testName)
             {
-                case TEST_NAME.予備バッテリー:
-                    PicName = "予備バッテリー.jpg";
+                case NAME.書き込みコネクタ:
+                    PicName = "CN5.jpg";
                     break;
-
-                case TEST_NAME.LD1a点灯:
-                    PicName = "LD1a点灯.jpg";
+                case NAME.通信線取り外し:
+                    PicName = "通信線.jpg";
                     break;
-
-                case TEST_NAME.LED1点灯:
-                    PicName = "LED1点灯.jpg";
+                case NAME.SW1設定_003:
+                    PicName = "SW1.jpg";
+                    break;
+                case NAME.CN11入れ替え:
+                    PicName = "CN11.jpg";
+                    break;
+                case NAME.その他:
+                    PicName = "non2.png";
                     break;
             }
 
@@ -57,7 +63,8 @@ namespace _30167671Tester
 
         private void metroWindow_Loaded(object sender, RoutedEventArgs e)
         {
-            General.PlaySound(General.soundNotice);
+            if (soundSw)
+                General.PlaySound(General.soundNotice);
             ButtonOk.Focus();
             imagePic.Source = new BitmapImage(new Uri("Resources/Pic/" + PicName, UriKind.Relative));
         }

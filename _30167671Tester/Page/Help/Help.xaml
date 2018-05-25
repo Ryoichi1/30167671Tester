@@ -6,7 +6,8 @@
 	x:Name="Page"
 	WindowTitle="Page"
 	FlowDirection="LeftToRight"
-	Width="1250" Height="890">
+    Width="1576" Height="814">
+	
 
     <Canvas x:Name="LayoutRoot">
 
@@ -44,12 +45,12 @@
         </Canvas.Resources>
 
 
-        <TabControl x:Name="TabMenu" Height="800" Width="1238" Canvas.Left="2" FlowDirection="RightToLeft" Canvas.Top="2">
-            <TabItem x:Name="TabVerInfo" Header="VERSION" Margin="1107,28,-1088,-24" Width="106" HorizontalAlignment="Left" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" Loaded="TabVerInfo_Loaded" Controls:ControlsHelper.HeaderFontSize="18">
-                <Frame x:Name="FrameVerInfo" FlowDirection="LeftToRight" Margin="322,-24,159,367"/>
+        <TabControl x:Name="TabMenu" Height="800" Width="1560" Canvas.Left="2" FlowDirection="RightToLeft" Canvas.Top="2">
+            <TabItem x:Name="TabVerInfo" Header="VERSION" Margin="1427,28,-1427,-24" Width="106" HorizontalAlignment="Left" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" Loaded="TabVerInfo_Loaded" Controls:ControlsHelper.HeaderFontSize="18">
+                <Frame x:Name="FrameVerInfo" FlowDirection="LeftToRight" Margin="-13,-24,159,23"/>
             </TabItem>
-            <TabItem x:Name="TabManual" Header="取扱説明書" Margin="999,64,-999,-64" Width="108" HorizontalAlignment="Left" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" Loaded="TabManual_Loaded" Controls:ControlsHelper.HeaderFontSize="18">
-                <Frame x:Name="FrameManual" FlowDirection="LeftToRight" Margin="49,-25,159,164"/>
+            <TabItem x:Name="TabManual" Header="取扱説明書" Margin="1319,96,-1319,-96" Width="108" HorizontalAlignment="Left" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" Loaded="TabManual_Loaded" Controls:ControlsHelper.HeaderFontSize="18">
+                <Frame x:Name="FrameManual" FlowDirection="LeftToRight" Margin="0,-25,159,24"/>
             </TabItem>
         </TabControl>
         <Border VerticalAlignment="Stretch" Height="432" BorderBrush="White" BorderThickness="1" HorizontalAlignment="Right" Canvas.Left="154" Canvas.Top="10"/>

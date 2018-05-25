@@ -39,33 +39,63 @@
     </Page.Triggers>
 
     <Canvas>
-        <Canvas Height="99" Canvas.Left="11" Canvas.Top="13" Width="490">
+        <Canvas Height="306" Canvas.Left="11" Canvas.Top="13" Width="1031">
             <Canvas.Background>
                 <SolidColorBrush Color="#FF44BDEC" Opacity="0.2"/>
             </Canvas.Background>
             <Button x:Name="buttonPow" Content="電源"  Height="34" Canvas.Left="10" Canvas.Top="11" Width="105" FontSize="16" Style="{DynamicResource SquareButtonStyle}" Controls:ControlsHelper.ContentCharacterCasing="Normal" FontFamily="Meiryo UI" FontWeight="Normal" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Click="buttonPow_Click" RenderTransformOrigin="0.5,0.5" Padding="0" ScrollViewer.CanContentScroll="True" BorderThickness="1" Background="{x:Null}"/>
+            <Button x:Name="buttonPort" Content="COM1 CLOSEする"  Height="34" Canvas.Left="130" Canvas.Top="11" Width="145" FontSize="16" Style="{DynamicResource SquareButtonStyle}" Controls:ControlsHelper.ContentCharacterCasing="Normal" FontFamily="Meiryo UI" FontWeight="Normal" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" RenderTransformOrigin="0.5,0.5" Padding="0" ScrollViewer.CanContentScroll="True" BorderThickness="1" Background="{x:Null}" Click="buttonPort_Click"/>
+            <Canvas x:Name="CanvasComm" Height="230" Canvas.Top="66" Width="895" Canvas.Left="10">
+                <Canvas.Resources>
+                    <Style TargetType="{x:Type Label}">
+                        <Setter Property="FontSize" Value="11"/>
+                        <Setter Property="Padding" Value="0"/>
+                        <Setter Property="Foreground"  Value="white"/>
+                        <Setter Property="BorderBrush" Value="White"/>
+                        <Setter Property="Effect">
+                            <Setter.Value>
+                                <DropShadowEffect Color="#FF04FFF4" BlurRadius="20" ShadowDepth="0" Direction="0"/>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </Canvas.Resources>
+                <Canvas.Background>
+                    <SolidColorBrush Color="White" Opacity="0.15"/>
+                </Canvas.Background>
+
+                <TextBox x:Name="tbCommLog" Height="187" Canvas.Left="8" TextWrapping="Wrap" Canvas.Top="33" Width="877" BorderBrush="{x:Null}" Foreground="#FF0970C5" Background="{x:Null}" VerticalScrollBarVisibility="Auto" SelectionBrush="{x:Null}" BorderThickness="0" CaretBrush="{x:Null}" IsReadOnly="True" FontSize="14" TextChanged="tbCommtLog_TextChanged" Text="{Binding RX}" FontFamily="Consolas"/>
+
+                <TextBlock TextWrapping="Wrap" Text="通信ログ" FontSize="16" Foreground="White" HorizontalAlignment="Left" VerticalAlignment="Center" Height="22" Width="100" Canvas.Left="12" Canvas.Top="4"/>
+                <Label Content="" Height="1" Canvas.Left="9" Canvas.Top="28" Width="876" Background="#FF0388F7">
+                    <Label.Effect>
+                        <DropShadowEffect Color="#FF09A0F7" Direction="0" ShadowDepth="0" BlurRadius="20"/>
+                    </Label.Effect>
+                </Label>
+                <Label x:Name="tbTestTime1" Content="{Binding TestTime}" HorizontalAlignment="Left" VerticalAlignment="Center" Height="21" Width="63" Canvas.Left="297" FontSize="18" Foreground="White" FontFamily="Segoe UI Light" Padding="0" Canvas.Top="4"/>
+            </Canvas>
         </Canvas>
-        <Canvas Height="647" Canvas.Left="11" Canvas.Top="139" Width="1329">
+        <Canvas x:Name="canvasOscillo" Height="421" Canvas.Left="11" Canvas.Top="349" Width="1031">
             <Canvas.Background>
                 <SolidColorBrush Color="#FF44BDEC" Opacity="0.2"/>
             </Canvas.Background>
 
-            <oxy:Plot x:Name="PlotWav" Height="484" Width="638" Canvas.Top="19" Canvas.Left="10" Background="{x:Null}" Foreground="White" BorderBrush="White" PlotAreaBorderColor="White" TextColor="White">
+            <oxy:Plot x:Name="PlotWav" Height="402" Width="583" Canvas.Top="19" Canvas.Left="10" Background="{x:Null}" Foreground="White" BorderBrush="White" PlotAreaBorderColor="White" TextColor="White">
                 <oxy:Plot.Axes>
                     <oxy:LinearAxis Minimum="-20" Maximum="20" MajorStep="5" Position="Left"  TextColor="White" TicklineColor="White" MajorGridlineStyle="Dash" MajorGridlineColor="Gray"/>
-                    <oxy:LinearAxis Minimum="0" Maximum="600" MajorStep="60" Position="Bottom" TextColor="Transparent" TicklineColor="White" MajorGridlineStyle="Dash"  MajorGridlineColor="Gray"/>
+                    <oxy:LinearAxis Minimum="0" Maximum="600" MajorStep="50" Position="Bottom" TextColor="Transparent" TicklineColor="White" MajorGridlineStyle="Dash"  MajorGridlineColor="Gray"/>
                 </oxy:Plot.Axes>
-                <oxy:LineSeries ItemsSource="{Binding ListLimitHi}" Color="OrangeRed" Foreground="White"  LineStyle="Automatic" StrokeThickness="16" DataFieldX="" DataFieldY=""  />
-                <oxy:LineSeries ItemsSource="{Binding ListWav}" Color="DodgerBlue" Foreground="White"  LineStyle="Automatic" StrokeThickness="4" DataFieldX="" DataFieldY=""  />
-                <oxy:LineSeries ItemsSource="{Binding ListLimitLo}" Color="OrangeRed" Foreground="White"  LineStyle="Automatic" StrokeThickness="4" DataFieldX="" DataFieldY=""  />
-
+                <oxy:LineSeries ItemsSource="{Binding ListMasterWav}" Color="OrangeRed" Foreground="White"  LineStyle="Automatic" StrokeThickness="10" DataFieldX="" DataFieldY=""  />
             </oxy:Plot>
-
-
-
-            <Button x:Name="buttonPow1" Content="マスター波形の取得"  Height="57" Canvas.Left="678" Canvas.Top="28" Width="180" FontSize="20" Style="{DynamicResource SquareButtonStyle}" Controls:ControlsHelper.ContentCharacterCasing="Normal" FontFamily="Meiryo UI" FontWeight="Normal" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Click="buttonPow_Click" RenderTransformOrigin="0.5,0.5" Padding="0" ScrollViewer.CanContentScroll="True" BorderThickness="1" Background="{x:Null}"/>
-            <RadioButton x:Name="rb位相制御" Content="位相制御" Height="26" Canvas.Left="678" Canvas.Top="98" Width="130" FontFamily="Meiryo UI" FontSize="18" Background="{x:Null}"/>
-            <RadioButton x:Name="rbサイクル制御" Content="サイクル制御" Height="26" Canvas.Left="678" Canvas.Top="129" Width="130" FontFamily="Meiryo UI" FontSize="18" RenderTransformOrigin="0.377,0.346" Background="{x:Null}"/>
+            <Button x:Name="buttonWav" Content="マスター波形の取得"  Height="57" Canvas.Left="630" Canvas.Top="37" Width="180" FontSize="20" Style="{DynamicResource SquareButtonStyle}" Controls:ControlsHelper.ContentCharacterCasing="Normal" FontFamily="Meiryo UI" FontWeight="Normal" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" RenderTransformOrigin="0.5,0.5" Padding="0" ScrollViewer.CanContentScroll="True" BorderThickness="1" Background="{x:Null}" Click="buttonWav_Click"/>
+            <Canvas Height="73" Canvas.Left="630" Canvas.Top="99" Width="200">
+                <RadioButton x:Name="rbサイクル制御" Content="サイクル制御" Height="26" Canvas.Left="10" Canvas.Top="41" Width="130" FontFamily="Meiryo UI" FontSize="18" RenderTransformOrigin="0.377,0.346" Background="{x:Null}"/>
+                <RadioButton x:Name="rb位相制御" Content="位相制御" Height="26" Width="130" FontFamily="Meiryo UI" FontSize="18" Background="{x:Null}" Canvas.Left="10" Canvas.Top="10"/>
+            </Canvas>
+            <Label Content="{Binding ConfOscillo}" Width="189" Height="33" Canvas.Left="611" Canvas.Top="357" BorderBrush="{x:Null}" BorderThickness="1" VerticalContentAlignment="Center" FontSize="12">
+                <Label.Background>
+                    <SolidColorBrush Color="White" Opacity="0.1"/>
+                </Label.Background>
+            </Label>
         </Canvas>
 
     </Canvas>

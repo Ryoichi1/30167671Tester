@@ -26,7 +26,7 @@ namespace _30167671Tester
             // オブジェクト作成に必要なコードをこの下に挿入します。
             this.DataContext = State.VmTestStatus;
             Canvas検査データ.DataContext = State.VmTestResults;
-            CanvasComm232C.DataContext = State.VmComm;
+            CanvasComm.DataContext = State.VmComm;
 
             (FindResource("Blink") as Storyboard).Begin();
 
@@ -49,7 +49,8 @@ namespace _30167671Tester
             State.testCommand.SbRingLoad = (() => { (FindResource("StoryboardRingLoad") as Storyboard).Begin(); });
             State.testCommand.SbPass = (() => { (FindResource("StoryboardDecision") as Storyboard).Begin(); });
             State.testCommand.SbFail = (() => { (FindResource("StoryboardDecision") as Storyboard).Begin(); });
-
+            State.testCommand.StopButtonBlinkOn = (() => { (FindResource("BlinkStopButton") as Storyboard).Begin(); });
+            State.testCommand.StopButtonBlinkOff = (() => { (FindResource("BlinkStopButton") as Storyboard).Stop(); });
 
             //FWバージョンの表示
             State.VmTestStatus.FwVer = State.TestSpec.FirmwareName;
@@ -80,9 +81,8 @@ namespace _30167671Tester
                 State.VmTestStatus.TestTime = "00:00";
                 State.VmTestStatus.IsActiveRing = false;
 
-                //強制停止ボタンの設定
-                State.VmTestStatus.StopButtonEnable = false;
-                State.VmTestStatus.StopButtonVis = 0.0;
+                //開始ボタン設定
+                State.VmTestStatus.StopButtonEnable = true;
 
                 await State.testCommand.StartCheck();
             }
@@ -154,8 +154,42 @@ namespace _30167671Tester
 
         private void ButtonStop_Click(object sender, RoutedEventArgs e)
         {
-            Flags.ClickStopButton = true;
-            State.VmTestStatus.StopButtonEnable = false;
+            if (State.VmTestStatus.StartButtonContent == Constants.開始)
+            {
+                if (!Flags.EnableTestStart)
+                {
+                    return;
+                }
+
+                Flags.Click確認Button = true;
+            }
+            else if (State.VmTestStatus.StartButtonContent == Constants.停止)
+            {
+                Flags.ClickStopButton = true;
+                State.VmTestStatus.StartButtonEnable = false;
+            }
+            else if (State.VmTestStatus.StartButtonContent == Constants.確認)
+            {
+                Flags.Click確認Button = true;
+                State.VmTestStatus.StartButtonContent = Constants.開始;
+            }
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+
+            General.PlaySound(General.soundTotsugeki);
+        }
+
+        private void tbCommLog_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            tbCommLog.ScrollToEnd();
+            //tbTestLog.Select(tbTestLog.Text.Length, 0)
+        }
+
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            General.PlaySound(General.soundFail);
         }
     }
 }

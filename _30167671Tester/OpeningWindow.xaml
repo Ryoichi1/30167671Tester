@@ -8,7 +8,7 @@
         BorderThickness="1"
         ShowTitleBar="False"
         mc:Ignorable="d"
-        Height="353.705" Width="739.549" WindowStartupLocation="CenterScreen" AllowsTransparency="True" WindowStyle="None" Icon="Resources/Pic/VisualStudio_32x.png" HorizontalAlignment="Left" VerticalAlignment="Top" WindowTransitionsEnabled="False">
+        Height="333.079" Width="547.036" WindowStartupLocation="CenterScreen" AllowsTransparency="True" WindowStyle="None" Icon="Resources/Pic/VisualStudio_32x.png" HorizontalAlignment="Left" VerticalAlignment="Top" WindowTransitionsEnabled="False">
     <Controls:MetroWindow.Resources>
         <Storyboard x:Key="sbMainWinShow">
             <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(Panel.Background).(Brush.Opacity)" Storyboard.TargetName="metroWindow">
@@ -99,10 +99,10 @@
             </RadialGradientBrush>
         </Canvas.Background>
 
-        <Label Content="新CPU基板検査システム" Height="71" Canvas.Left="8" Width="495" Foreground="#FFF7F7F7" FontSize="48" Padding="0" FontFamily="Segoe UI Light" Background="{x:Null}" Canvas.Top="10"/>
-        <Label x:Name="label30167671" Content="30167671" Height="55" Canvas.Left="19" Canvas.Top="122" Width="177" Foreground="#FFF7F7F7" FontSize="32" Padding="0" FontFamily="Meiryo UI" MouseLeftButtonDown="label30167671_MouseLeftButtonDown" Cursor="Hand"/>
-        <Label x:Name="label30221500" Content="30221500" Height="55" Canvas.Left="19" Canvas.Top="182" Width="177" Foreground="#FFF7F7F7" FontSize="32" Padding="0" FontFamily="Meiryo UI" MouseLeftButtonDown="label30221500_MouseLeftButtonDown" Cursor="Hand"/>
-        <Label x:Name="labelPrint" Content="成績書印刷" Height="55" Canvas.Left="19" Canvas.Top="242" Width="177" Foreground="#FFF7F7F7" FontSize="32" Padding="0" FontFamily="Meiryo UI" Cursor="Hand" MouseLeftButtonDown="labelPrint_MouseLeftButtonDown"/>
+        <Label Content="KELK 新CPU基板検査" Height="71" Canvas.Left="8" Width="495" Foreground="#FFF7F7F7" FontSize="48" Padding="0" FontFamily="Segoe UI Light" Background="{x:Null}" Canvas.Top="10"/>
+        <Label x:Name="label30167671" Content="30167671" Height="55" Canvas.Left="19" Canvas.Top="122" Width="177" Foreground="#FFF7F7F7" FontSize="32" Padding="0" FontFamily="Segoe UI Light" MouseLeftButtonDown="label30167671_MouseLeftButtonDown" Cursor="Hand"/>
+        <Label x:Name="label30221500" Content="30221500" Height="55" Canvas.Left="19" Canvas.Top="182" Width="177" Foreground="#FFF7F7F7" FontSize="32" Padding="0" FontFamily="Segoe UI Light" MouseLeftButtonDown="label30221500_MouseLeftButtonDown" Cursor="Hand"/>
+        <Label x:Name="labelPrint" Content="成績書印刷" Height="37" Canvas.Left="19" Canvas.Top="242" Width="142" Foreground="#FFF7F7F7" FontSize="26" Padding="0" FontFamily="Segoe UI Light" Cursor="Hand" MouseLeftButtonDown="labelPrint_MouseLeftButtonDown"/>
 
 
     </Canvas>

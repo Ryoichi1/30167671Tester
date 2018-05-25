@@ -8,6 +8,7 @@ namespace _30167671Tester
 {
     public class ViewModelTestStatus : BindableBase
     {
+
         private string _Theme;
         public string Theme
         {
@@ -34,13 +35,6 @@ namespace _30167671Tester
             get { return _StopButtonEnable; }
             set { SetProperty(ref _StopButtonEnable, value); }
 
-        }
-
-        private double _StopButtonVis;
-        public double StopButtonVis
-        {
-            get { return _StopButtonVis; }
-            set { SetProperty(ref _StopButtonVis, value); }
         }
 
 
@@ -306,35 +300,35 @@ namespace _30167671Tester
         }
 
 
-        private Brush _ColorEPX64;
+        private Brush _ColorEPX64 = General.NgBrush;
         public Brush ColorEpx64
         {
             get { return _ColorEPX64; }
             set { SetProperty(ref _ColorEPX64, value); }
         }
 
-        private Brush _Color7012;
+        private Brush _Color7012 = General.NgBrush;
         public Brush Color7012
         {
             get { return _Color7012; }
             set { SetProperty(ref _Color7012, value); }
         }
 
-        private Brush _Color5107B;
+        private Brush _Color5107B = General.NgBrush;
         public Brush Color5107B
         {
             get { return _Color5107B; }
             set { SetProperty(ref _Color5107B, value); }
         }
 
-        private Brush _Color322x;
+        private Brush _Color322x = General.NgBrush;
         public Brush Color323x
         {
             get { return _Color322x; }
             set { SetProperty(ref _Color322x, value); }
         }
 
-        private Brush _ColorGenerator;
+        private Brush _ColorGenerator = General.NgBrush;
         public Brush ColorGenerator
         {
             get { return _ColorGenerator; }

@@ -14,8 +14,8 @@ namespace _30167671Tester
 
         public class vm : BindableBase
         {
-            private string _DcLabel;
-            public string DcLabel { get { return _DcLabel; } internal set { SetProperty(ref _DcLabel, value); } }
+            private string _Serial;
+            public string Serial { get { return _Serial; } internal set { SetProperty(ref _Serial, value); } }
 
         }
 
@@ -27,9 +27,6 @@ namespace _30167671Tester
 
             State.VmMainWindow.ThemeOpacity = 0.0;
 
-            (FindResource("Blink1") as Storyboard).Begin();
-
-
             viewmodel = new vm();
             this.DataContext = viewmodel;
 
@@ -39,7 +36,7 @@ namespace _30167671Tester
         {
             //デートコード表記の設定
 
-            viewmodel.DcLabel = State.VmMainWindow.SerialNumber;
+            viewmodel.Serial = State.VmMainWindow.SerialNumber;
         }
 
 
@@ -56,8 +53,8 @@ namespace _30167671Tester
 
             RefreshDataContextFromLabelForm();
 
+            (FindResource("BlinkButton") as Storyboard).Stop();
             General.PlaySound(General.soundBattery);
-
         }
 
 
@@ -66,19 +63,11 @@ namespace _30167671Tester
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
             SetLabel();
-            General.PlaySoundLoop(General.soundSerialLabel);
+            buttonReturn.Focus();
+            (FindResource("BlinkButton") as Storyboard).Begin();
         }
 
-        private void buttonReturn_GotFocus(object sender, RoutedEventArgs e)
-        {
-            buttonReturn.Background = General.OnBrush;
-        }
 
-        private void buttonReturn_LostFocus(object sender, RoutedEventArgs e)
-        {
-            buttonReturn.Background = General.OffBrush;
-
-        }
 
 
 

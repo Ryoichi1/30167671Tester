@@ -16,7 +16,7 @@ namespace _30167671Tester
         }
 
         //イニシャライズ
-        public static bool OpenPort(string comNo)
+        public static bool OpenPort()
         {
             var result = false;
 
@@ -25,7 +25,7 @@ namespace _30167671Tester
                 if (!Port.IsOpen)
                 {
                     //ポート1 RS232Cの設定
-                    Port.PortName = comNo;
+                    Port.PortName = "COM1";//COM1固定とする
                     Port.BaudRate = 19200;
                     Port.DataBits = 7;
                     Port.Parity = System.IO.Ports.Parity.None;
@@ -39,11 +39,11 @@ namespace _30167671Tester
                     Port.ReadTimeout = 5000;
                     Port.Open();
                 }
-                return 通信ステータス = true;
+                return result = true;
             }
             catch
             {
-                return 通信ステータス = false;
+                return result = false;
             }
             finally
             {

@@ -1,0 +1,40 @@
+﻿<Controls:MetroWindow x:Name="metroWindow" x:Class="_30167671Tester.DialogInput"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:_30167671Tester"
+        GlowBrush="{DynamicResource AccentColorBrush}"
+        BorderThickness="2"
+        ShowTitleBar="False"
+        mc:Ignorable="d"
+        Height="341.551" Width="815.05" WindowStartupLocation="CenterScreen" AllowsTransparency="True" WindowStyle="None" Icon="Resources/Pic/VisualStudio_32x.png" BorderBrush="#FF0A89F1" Padding="0" Margin="0,0,700,0" WindowTransitionsEnabled="False" Loaded="metroWindow_Loaded" ShowCloseButton="False" ShowMinButton="False" ShowMaxRestoreButton="False" >
+    <Controls:MetroWindow.Resources>
+        <Storyboard x:Key="sbDialogShow">
+            <ThicknessAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Margin)" Storyboard.TargetName="metroWindow">
+                <EasingThicknessKeyFrame KeyTime="0:0:0.3" Value="0">
+                    <EasingThicknessKeyFrame.EasingFunction>
+                        <SineEase EasingMode="EaseOut"/>
+                    </EasingThicknessKeyFrame.EasingFunction>
+                </EasingThicknessKeyFrame>
+            </ThicknessAnimationUsingKeyFrames>
+        </Storyboard>
+    </Controls:MetroWindow.Resources>
+    <Controls:MetroWindow.Triggers>
+        <EventTrigger RoutedEvent="FrameworkElement.Loaded">
+            <BeginStoryboard Storyboard="{StaticResource sbDialogShow}"/>
+        </EventTrigger>
+    </Controls:MetroWindow.Triggers>
+
+
+
+    <Canvas x:Name="MainBack" Background="#FFE2E1C7">
+        <Label x:Name="labelMessage"  Height="70" Canvas.Left="10" Canvas.Top="10" Width="775" Foreground="Black" FontSize="42" Content="6ダイヤル抵抗の値を入力してください"/>
+        <Button x:Name="ButtonOk" Content="OK" Controls:ControlsHelper.ContentCharacterCasing="Normal" Style="{DynamicResource SquareButtonStyle}" Height="54" Canvas.Top="263" Width="217" FontSize="24" Foreground="#FF0A89F1" BorderBrush="#FF0A89F1" Background="{x:Null}" Canvas.Left="46" FontFamily="Meiryo UI" FontWeight="Normal" BorderThickness="1" Click="ButtonOk_Click" TabIndex="1" LostFocus="ButtonOk_LostFocus" GotFocus="ButtonOk_GotFocus" MouseEnter="ButtonOk_MouseEnter" MouseLeave="ButtonOk_MouseLeave"/>
+        <TextBox x:Name="tbResValue" TextWrapping="Wrap" FontSize="72" Background="#FF8DCFE2" BorderBrush="#FF1861FF" HorizontalAlignment="Left" VerticalAlignment="Center" Height="103" Width="297" Foreground="Black" CaretBrush="Black" CharacterCasing="Upper" InputMethod.IsInputMethodEnabled="False" InputMethod.PreferredImeState="Off" Canvas.Left="46" Canvas.Top="98" SelectionBrush="{x:Null}" VerticalContentAlignment="Center" FontFamily="Meiryo UI" BorderThickness="3" Text="{Binding AlarmPoint}"/>
+        <Label x:Name="labelMessage_Copy"  Height="95" Canvas.Left="350" Canvas.Top="99" Width="77" Foreground="Black" FontSize="72" Content="Ω"/>
+
+    </Canvas>
+
+</Controls:MetroWindow>

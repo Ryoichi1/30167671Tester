@@ -8,6 +8,7 @@ using System.Media;
 using System.Windows.Media;
 using System;
 using static System.Threading.Thread;
+using static _30167671Tester.State;
 
 namespace _30167671Tester
 {
@@ -33,18 +34,23 @@ namespace _30167671Tester
         public static SoundPlayer soundTotsugeki = null;
         public static SoundPlayer soundNotice = null;
 
+        public static SoundPlayer sound108_96 = null;
+        public static SoundPlayer sound123_24 = null;
+        public static SoundPlayer sound149_83 = null;
+        public static SoundPlayer sound183_19 = null;
+
 
         public static SolidColorBrush DialogOnBrush = new SolidColorBrush();
         public static SolidColorBrush OnBrush = new SolidColorBrush();
         public static SolidColorBrush OffBrush = new SolidColorBrush();
+        public static SolidColorBrush OkBrush = new SolidColorBrush();
         public static SolidColorBrush NgBrush = new SolidColorBrush();
 
-
+        public static IOscilloscope osc;
         static General()
         {
             //オーディオリソースを取り出す
-            General.soundPass = new SoundPlayer(@"Resources\Wav\Pass.wav");
-            General.soundPassLong = new SoundPlayer(@"Resources\Wav\PassLong.wav");
+            General.soundPass = new SoundPlayer(@"Resources\Wav\NewVictory.wav");
             General.soundFail = new SoundPlayer(@"Resources\Wav\Fail.wav");
             General.soundAlarm = new SoundPlayer(@"Resources\Wav\Alarm.wav");
             General.soundKuru = new SoundPlayer(@"Resources\Wav\Kuru.wav");
@@ -57,6 +63,11 @@ namespace _30167671Tester
             General.soundSerialLabel = new SoundPlayer(@"Resources\Wav\BGM_Label.wav");
             General.soundNotice = new SoundPlayer(@"Resources\Wav\Notice.wav");
 
+            General.sound108_96 = new SoundPlayer(@"Resources\Wav\108_96.wav");
+            General.sound123_24 = new SoundPlayer(@"Resources\Wav\123_24.wav");
+            General.sound149_83 = new SoundPlayer(@"Resources\Wav\149_83.wav");
+            General.sound183_19 = new SoundPlayer(@"Resources\Wav\183_19.wav");
+
             OffBrush.Color = Colors.Transparent;
 
             DialogOnBrush.Color = Colors.DodgerBlue;
@@ -64,6 +75,9 @@ namespace _30167671Tester
 
             OnBrush.Color = Colors.DodgerBlue;
             OnBrush.Opacity = 0.4;
+
+            OkBrush.Color = Colors.DodgerBlue;
+            OkBrush.Opacity = 0.4;
 
             NgBrush.Color = Colors.HotPink;
             NgBrush.Opacity = 0.4;
@@ -203,13 +217,13 @@ namespace _30167671Tester
             if (State.RetryLogList.Count() == 0) return true;
 
             string fileName_RetryLog = "";
-            switch (State.testMode)
+            switch (State.TestItem)
             {
-                case TEST_MODE._30167671:
-                    fileName_RetryLog = Constants.fileName_RetryLog30167671;
+                case ITEM._30167671:
+                    fileName_RetryLog = Constants.RetryLogPath_30167671;
                     break;
-                case TEST_MODE._30221500:
-                    fileName_RetryLog = Constants.fileName_RetryLog30221500;
+                case ITEM._30221500:
+                    fileName_RetryLog = Constants.RetryLogPath_30221500;
                     break;
 
             }
@@ -239,18 +253,81 @@ namespace _30167671Tester
         {
             var ListData = new List<string>
             {
-                State.VmMainWindow.SerialNumber,
-                "AssemblyVer " + State.AssemblyInfo,
-                "TestSpecVer " + State.TestSpec.TestSpecVer,
+                VmMainWindow.Opecode,
+                VmTestStatus.FwSum,
+                VmMainWindow.SerialNumber,
                 System.DateTime.Now.ToString("yyyy年MM月dd日(ddd) HH:mm:ss"),
-                State.VmMainWindow.Operator,
-
-                State.TestSpec.FirmwareName,
-                State.TestSpec.FirmwareSum,
-
+                VmMainWindow.Operator,
                 //TODO:
+                VmTestResults.Vol12V,
+                VmTestResults.Vol5V,
+                VmTestResults.Vol3_3V,
+                VmTestResults.VolAVDD,
+                VmTestResults.VolAVCC,
+                VmTestResults.VolVREF,
+                VmTestResults.VolAVCCD,
+                VmTestResults.VolS5V,
 
+                VmTestResults.A0_0, VmTestResults.A0_5, VmTestResults.A0_10,
+                VmTestResults.A1_0, VmTestResults.A1_5, VmTestResults.A1_10,
+                VmTestResults.A2_0, VmTestResults.A2_5, VmTestResults.A2_10,
+                VmTestResults.A3_0, VmTestResults.A3_5, VmTestResults.A3_10,
+                VmTestResults.A4_0, VmTestResults.A4_5, VmTestResults.A4_10,
+                VmTestResults.A5_0, VmTestResults.A5_5, VmTestResults.A5_10,
+                VmTestResults.A6_0, VmTestResults.A6_5, VmTestResults.A6_10,
+                VmTestResults.A7_0, VmTestResults.A7_5, VmTestResults.A7_10,
+                VmTestResults.A8_0, VmTestResults.A8_5, VmTestResults.A8_10,
+                VmTestResults.A9_0, VmTestResults.A9_5, VmTestResults.A9_10,
+                VmTestResults.A10_0, VmTestResults.A10_5, VmTestResults.A10_10,
+                VmTestResults.A11_0, VmTestResults.A11_5, VmTestResults.A11_10,
 
+                VmTestResults.Pulse1L,VmTestResults.Pulse1M,VmTestResults.Pulse1R,
+                VmTestResults.Pulse2L,VmTestResults.Pulse2M,VmTestResults.Pulse2R,
+                VmTestResults.Pulse3L,VmTestResults.Pulse3M,VmTestResults.Pulse3R,
+
+                VmTestResults.DV9_0,VmTestResults.DV9_150,VmTestResults.DV9_300,
+                VmTestResults.DV11_0,VmTestResults.DV11_150,VmTestResults.DV11_300,
+
+                VmTestResults.DV10_0,VmTestResults.DV10_40,VmTestResults.DV10_75,
+                VmTestResults.DV12_0,VmTestResults.DV12_40,VmTestResults.DV12_75,
+
+                VmTestResults.DV13_0,VmTestResults.DV13_1800,VmTestResults.DV13_3600,
+
+                VmTestResults.DV1_0,VmTestResults.DV1_50,VmTestResults.DV1_100,
+                VmTestResults.DV3_0,VmTestResults.DV3_50,VmTestResults.DV3_100,
+                VmTestResults.DV5_0,VmTestResults.DV5_50,VmTestResults.DV5_100,
+                VmTestResults.DV7_0,VmTestResults.DV7_50,VmTestResults.DV7_100,
+
+                VmTestResults.DV2_0,VmTestResults.DV2_50,VmTestResults.DV2_100,
+                VmTestResults.DV4_0,VmTestResults.DV4_50,VmTestResults.DV4_100,
+                VmTestResults.DV6_0,VmTestResults.DV6_50,VmTestResults.DV6_100,
+                VmTestResults.DV8_0,VmTestResults.DV8_50,VmTestResults.DV8_100,
+
+                VmTestResults.Peak1位相,VmTestResults.Peak2位相,
+                VmTestResults.Peak1サイクル,VmTestResults.Peak2サイクル,
+
+                VmTestResults.AlarmPoint,
+
+                VmTestResults.VolConverted, VmTestResults.CT1, VmTestResults.CT2,
+
+                VmTestResults.Vref,
+
+                VmTestResults.PV1_1, VmTestResults.PV1_2, VmTestResults.PV1_3, VmTestResults.PV1_123_24,
+                VmTestResults.PV2_1, VmTestResults.PV2_2, VmTestResults.PV2_3, VmTestResults.PV2_123_24,
+                VmTestResults.PV3_1, VmTestResults.PV3_2, VmTestResults.PV3_3, VmTestResults.PV3_123_24,
+                VmTestResults.PV4_1, VmTestResults.PV4_2, VmTestResults.PV4_3, VmTestResults.PV4_123_24,
+
+                VmTestResults.I1_1, VmTestResults.I1_2, VmTestResults.I1_10mA,
+                VmTestResults.I2_1, VmTestResults.I2_2, VmTestResults.I2_10mA,
+                VmTestResults.I3_1, VmTestResults.I3_2, VmTestResults.I3_10mA,
+                VmTestResults.I4_1, VmTestResults.I4_2, VmTestResults.I4_10mA,
+
+                VmTestResults.V1_1, VmTestResults.V1_2, VmTestResults.V1_5V,
+                VmTestResults.V2_1, VmTestResults.V2_2, VmTestResults.V2_5V,
+                VmTestResults.V3_1, VmTestResults.V3_2, VmTestResults.V3_5V,
+                VmTestResults.V4_1, VmTestResults.V4_2, VmTestResults.V4_5V,
+
+                VmTestResults.Res80k, VmTestResults.Res20k,
 
             };
 
@@ -265,13 +342,13 @@ namespace _30167671Tester
                 List<string> dataList = new List<string>();
                 dataList = MakePassTestDataPwa();
 
-                switch (State.testMode)
+                switch (State.TestItem)
                 {
-                    case TEST_MODE._30167671:
-                        PassDataFolderPath = Constants.PassData30167671FolderPath;
+                    case ITEM._30167671:
+                        PassDataFolderPath = Constants.PassDataPath_30167671;
                         break;
-                    case TEST_MODE._30221500:
-                        PassDataFolderPath = Constants.PassData30221500FolderPath;
+                    case ITEM._30221500:
+                        PassDataFolderPath = Constants.PassDataPath_30221500;
                         break;
                 }
 
@@ -280,7 +357,7 @@ namespace _30167671Tester
                 if (!System.IO.File.Exists(OkDataFilePath))
                 {
                     //既存検査データがなければ新規作成
-                    File.Copy(PassDataFolderPath + "Format.csv", OkDataFilePath);
+                    File.Copy(PassDataFolderPath + "format.csv", OkDataFilePath);
                 }
 
                 // リストデータをすべてカンマ区切りで連結する
@@ -309,13 +386,13 @@ namespace _30167671Tester
             {
                 string FailDataFolderPath = "";
 
-                switch (State.testMode)
+                switch (State.TestItem)
                 {
-                    case TEST_MODE._30167671:
-                        FailDataFolderPath = Constants.FailData30167671FolderPath;
+                    case ITEM._30167671:
+                        FailDataFolderPath = Constants.FailDataPath_30167671;
                         break;
-                    case TEST_MODE._30221500:
-                        FailDataFolderPath = Constants.FailData30221500FolderPath;
+                    case ITEM._30221500:
+                        FailDataFolderPath = Constants.FailDataPath_30221500;
                         break;
 
                 }
@@ -372,7 +449,7 @@ namespace _30167671Tester
             }
         }
 
-        private static string ReadCsv(string filePath)
+        public static string ReadCsv(string filePath)
         {
             try
             {
@@ -430,6 +507,9 @@ namespace _30167671Tester
         //ビューモデルクリア処理
         public static void ResetViewModel()//TODO:
         {
+            //シリアル№のインクリメント
+            State.VmMainWindow.SerialNumber = State.シリアルナンバー年月部分 + State.NewSerial.ToString("D5");
+
             State.VmMainWindow.SerialNumber = State.VmMainWindow.SerialNumber.Substring(0, 6) + State.NewSerial.ToString("D3");
             //ViewModel OK台数、NG台数、Total台数の更新
             State.VmTestStatus.OkCount = State.Setting.TodayOkCount.ToString() + "台";
@@ -508,7 +588,7 @@ namespace _30167671Tester
                 tm.Start();
                 while (true)
                 {
-                    if (tm.FlagTimeout) return false;
+                    if (tm.FlagTimeout || Flags.ClickStopButton) return false;
                     if (State.VmComm.RX.Contains("Program Number PFA3097\r\n\r\n>> "))
                     {
                         tm.stop();
@@ -592,6 +672,8 @@ namespace _30167671Tester
 
             Flags.Initializing周辺機器 = true;
 
+            Target.OpenPort();//COM1のため、無条件でOKとする 判定はしない
+
             //EPX64Sの初期化
             bool StopEpx64 = false;
             Task.Run(() =>
@@ -618,6 +700,27 @@ namespace _30167671Tester
                 StopEpx64 = true;
             });
 
+            //ファンクションジェネレータの初期化
+            bool StopWavGen = false;
+            Task.Run(() =>
+            {
+                while (true)
+                {
+                    if (Flags.StopInit周辺機器)
+                    {
+                        break;
+                    }
+
+                    Flags.StateWavGen = WaveFormGenerator.Initialize();
+                    if (Flags.StateWavGen)
+                        break;
+
+                    Thread.Sleep(400);
+                }
+
+                StopWavGen = true;
+            });
+
             //HIOKI7012の初期化
             bool Stop7012 = false;
             Task.Run(() =>
@@ -631,79 +734,49 @@ namespace _30167671Tester
 
                     Flags.State7012 = HIOKI7012.Init7012();
                     if (Flags.State7012)
+                    {
                         HIOKI7012.StopSource();
-
+                        break;
+                    }
                     Sleep(500);
                 }
+
                 Stop7012 = true;
             });
 
-
+            //USBシリアル変換器を使うので、通信がかち合わないように順番に初期化を行う
             //マルチメータの初期化
-            bool Stop323x = false;
-            Task.Run(() =>
-            {
-                while (true)
-                {
-                    if (Flags.StopInit周辺機器)
-                    {
-                        break;
-                    }
-
-                    Flags.State323x = Hioki3239.Init323x();
-                    if (Flags.State323x)
-                        break;
-
-                    Thread.Sleep(400);
-                }
-                Stop323x = true;
-            });
-
             //オシロスコープの初期化
+            bool Stop323x = false;
             bool Stop5107B = false;
+            osc = new DS_5107B();
             Task.Run(() =>
-            {
-                while (true)
                 {
-                    if (Flags.StopInit周辺機器)
+                    while (true)
                     {
-                        break;
+                        if (Flags.StopInit周辺機器 || (Flags.State323x && Flags.State5107B))
+                        {
+                            break;
+                        }
+
+
+                        if (!Flags.State323x)
+                        {
+                            Flags.State323x = Hioki3239.Init323x();
+                        }
+
+                        if (!Flags.State5107B)
+                        {
+                            Flags.State5107B = osc.Init();
+                            if (Flags.State5107B)
+                            {
+                                osc.SetBasicConf();
+                            }
+                        }
+                        Sleep(500);
                     }
-
-                    Flags.State5107B = DS_5107B.InitPort();
-                    if (Flags.State5107B)
-                    {
-                        DS_5107B.InitTestSetting();
-                        break;
-                    }
-
-                    Sleep(500);
-                }
-                Stop5107B = true;
-            });
-
-            //ファンクションジェネレータの初期化
-            bool StopWavGen = false;
-            Task.Run(() =>
-            {
-                while (true)
-                {
-                    if (Flags.StopInit周辺機器)
-                    {
-                        break;
-                    }
-
-                    Flags.StateWavGen =  WaveFormGenerator.Initialize();
-                    if (Flags.StateWavGen)
-                        break;
-
-                    Thread.Sleep(400);
-                }
-
-                StopWavGen = true;
-            });
-
-
+                    Stop323x = Stop5107B = true;
+                });
 
             Task.Run(() =>
             {
@@ -721,7 +794,6 @@ namespace _30167671Tester
                 Flags.Initializing周辺機器 = false;
             });
         }
-
         //■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
         //イニシャライズ処理
 
@@ -1092,7 +1164,37 @@ namespace _30167671Tester
             io.OutBit(EPX64R.PORT.P6, EPX64R.BIT.b7, EPX64R.OUT.L);
         }
 
+        public static async Task<bool> InitAll()
+        {
+            return await Task<bool>.Run(() =>
+            {
+                Sleep(3000);
+                io.Close();
+                Sleep(200);
+                HIOKI7012.ClosePort();
+                Sleep(200);
+                Hioki3239.ClosePort();
+                Sleep(200);
+                osc.Close();
+                Sleep(200);
+                WaveFormGenerator.Close();
+                Sleep(200);
+                FindSerialPort.GetDeviceNames();
+                Sleep(500);
+                Flags.StateEpx64 = General.io.InitEpx64R(0x7F);//0111 1111  ※P7入力 その他出力
+                if (!Flags.StateEpx64) return false;
+                Flags.State7012 = HIOKI7012.Init7012();
+                if (!Flags.State7012) return false;
+                Flags.State323x = Hioki3239.Init323x();
+                if (!Flags.State323x) return false;
+                Flags.State5107B = General.osc.Init();
+                if (!Flags.State5107B) return false;
+                Flags.StateWavGen = WaveFormGenerator.Initialize();
+                if (!Flags.StateWavGen) return false;
+                return true;
+            });
 
+        }
 
 
 

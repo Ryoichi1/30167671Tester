@@ -8,25 +8,17 @@
 	FlowDirection="LeftToRight"
 	Height="600" Width="1300" Loaded="Page_Loaded">
     <Page.Resources>
-        <Storyboard x:Key="Blink1" AutoReverse="True" RepeatBehavior="Forever">
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(TextElement.Foreground).(Brush.Opacity)" Storyboard.TargetName="labelMessage">
-                <EasingDoubleKeyFrame KeyTime="0:0:1" Value="0.1"/>
-            </DoubleAnimationUsingKeyFrames>
-            <ColorAnimationUsingKeyFrames Storyboard.TargetProperty="(Panel.Background).(SolidColorBrush.Color)" Storyboard.TargetName="buttonReturn">
-                <EasingColorKeyFrame KeyTime="0" Value="#FF1961CB"/>
-            </ColorAnimationUsingKeyFrames>
+        <Storyboard x:Key="BlinkButton" AutoReverse="True" RepeatBehavior="Forever">
             <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(Panel.Background).(Brush.Opacity)" Storyboard.TargetName="buttonReturn">
-                <EasingDoubleKeyFrame KeyTime="0" Value="1"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:1" Value="0"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.4" Value="0.6"/>
             </DoubleAnimationUsingKeyFrames>
         </Storyboard>
-
     </Page.Resources>
-    <Page.Triggers>
+    <!--<Page.Triggers>
         <EventTrigger RoutedEvent="FrameworkElement.Loaded">
             <BeginStoryboard Storyboard="{StaticResource Blink1}"/>
         </EventTrigger>
-    </Page.Triggers>
+    </Page.Triggers>-->
     <Canvas>
         <Canvas.Resources>
             <Style TargetType="Label">
@@ -40,10 +32,20 @@
                 </Setter>
             </Style>
         </Canvas.Resources>
-        <Button x:Name="buttonReturn" Content="確認" Height="37" Canvas.Left="13" Canvas.Top="15" Width="129" Style="{DynamicResource SquareButtonStyle}" Controls:ControlsHelper.ContentCharacterCasing="Normal" FontFamily="Meiryo UI" FontWeight="Normal" HorizontalContentAlignment="Center" FontSize="18" Click="buttonReturn_Click" Cursor="Hand"  />
-        <Image Height="500" Canvas.Left="13" Canvas.Top="66" Width="1208" Source="/自記温度計Tester;component/Resources/Pic/30167671シルク図.jpg" IsEnabled="False" Opacity="0.5"/>
-        <Label Height="25" Canvas.Left="522" Canvas.Top="453" Width="140" Background="#FF09F2FD" Foreground="#FF060606" HorizontalAlignment="Center" VerticalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" BorderThickness="0" Content="{Binding DcLabel}" FontSize="16"/>
-        <Label x:Name="labelMessage" Content="シリアルラベルを貼り付けてください" Height="31" Canvas.Left="166" Canvas.Top="20" Width="354" FontSize="20"/>
-        <Label x:Name="labelSample" Height="34" Canvas.Left="523" Canvas.Top="18" Width="151" Background="#FF09F2FD" Foreground="#FF060606" HorizontalAlignment="Center" VerticalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" BorderThickness="0" Content="{Binding DcLabel}" FontSize="20"/>
+        <Image Height="393" Canvas.Left="182" Canvas.Top="195" Width="820" Source="/Resources/Pic/30167671シルク図.jpg" IsEnabled="False" Opacity="0.5"/>
+        <Label Height="21" Canvas.Left="517" Canvas.Top="499" Width="115" Background="#FF09F2FD" Foreground="#FF060606" HorizontalAlignment="Center" VerticalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" BorderThickness="0" Content="{Binding Serial}" FontSize="16"/>
+        <Label x:Name="labelMessage" Content="①シリアルラベルを貼り付けてください" Height="47" Canvas.Left="192" Canvas.Top="20" Width="548" FontSize="30"/>
+        <Label x:Name="labelSample" Height="34" Canvas.Left="747" Canvas.Top="23" Width="151" Background="#FF09F2FD" Foreground="#FF060606" HorizontalAlignment="Center" VerticalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" BorderThickness="0" Content="{Binding Serial}" FontSize="20"/>
+        <Label x:Name="labelMessage_Copy1" Content="・SW1-8番のみONにする" Height="31" Canvas.Left="208" Canvas.Top="117" Width="284" FontSize="24"/>
+        <Label x:Name="labelMessage_Copy" Content="②製品のDIPスイッチの設定をしてください" Height="36" Canvas.Left="192" Canvas.Top="76" Width="603" FontSize="30"/>
+        <Label x:Name="labelMessage_Copy2" Content="・SW2、SW3をすべてOFFする" Height="31" Canvas.Left="208" Canvas.Top="148" Width="369" FontSize="24"/>
+        <Button x:Name="buttonReturn" Controls:ControlsHelper.ContentCharacterCasing="Normal" HorizontalAlignment="Center" VerticalAlignment="Center" Height="65" Width="159" BorderBrush="#FFABD6EA" FontSize="30" Canvas.Left="14" Style="{DynamicResource AccentedSquareButtonStyle}" BorderThickness="1" ClipToBounds="True" Canvas.Top="21" RenderTransformOrigin="11.977,3.9" FontFamily="Segoe UI Light" IsEnabled="{Binding StartButtonEnable}" Content="確認" Click="buttonReturn_Click" Foreground="White" >
+            <Button.Background>
+                <SolidColorBrush Color="#FF1B4F8D" Opacity="0.15"/>
+            </Button.Background>
+            <Button.Effect>
+                <DropShadowEffect Color="#FF22F7F7" BlurRadius="50" Direction="0" ShadowDepth="0"/>
+            </Button.Effect>
+        </Button>
     </Canvas>
 </Page>
