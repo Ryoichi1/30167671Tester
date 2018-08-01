@@ -60,6 +60,11 @@ namespace _30167671Tester
             //メタルモード設定（デフォルトは禁止とする）
             Flags.MetalModeSw = false;
 
+            if (State.TestItem == ITEM._30167671)
+                State.VmMainWindow.SerialNumber = State.Setting.NextSerial30167671;
+            else
+                State.VmMainWindow.SerialNumber = State.Setting.NextSerial30221500;
+
         }
 
 
@@ -184,42 +189,8 @@ namespace _30167671Tester
                 timerTextInput.Stop();
                 Flags.SetOpecode = true;
 
-                var testDataPath = State.TestItem == ITEM._30167671 ? Constants.PassDataPath_30167671 : Constants.PassDataPath_30221500;
-                //確定した工番の既存データファイルを検索してシリアルナンバーを決定する
-                string dataFilePath = testDataPath + State.VmMainWindow.Opecode + ".csv";
-                // 入力した工番の検査データが存在しているかどうか確認する
-
-                string lastSerial;
-                string 年月部分;
-                string 連番部分;
-                if (System.IO.File.Exists(dataFilePath)) //データファイルが存在するなら、ファイルを開いて最終シリアルナンバーをロードする
-                {
-                    try
-                    {
-                        lastSerial = General.LoadSerial(dataFilePath, State.VmMainWindow.Opecode);//lastSerialゲット
-                        年月部分 = lastSerial.Substring(0, 4);//lastSerialから西暦月部分を切り取り
-                        連番部分 = lastSerial.Substring(4, 5);//lastSerialから連番部分を切り取り
-
-                        State.シリアルナンバー年月部分 = 年月部分;
-                        State.NewSerial = Int32.Parse(連番部分) + 1;
-                        State.VmMainWindow.SerialNumber = State.シリアルナンバー年月部分 + State.NewSerial.ToString("D5");
-                    }
-                    catch
-                    {
-                        MessageBox.Show("シリアルナンバーの取得に失敗しました！");
-                        Flags.SetOpecode = false;
-                        return;
-                    }
-
-
-                }
-                else //データファイルが存在しなければ・・・
-                {
-                    State.シリアルナンバー年月部分 = System.DateTime.Now.ToString("yyMM");
-                    State.NewSerial = 1;
-                    State.VmMainWindow.SerialNumber = State.シリアルナンバー年月部分 + State.NewSerial.ToString("D5");
-                }
-
+                State.SetSerialInfo();
+                State.VmMainWindow.SerialNumber = State.シリアルナンバー年月部分 + State.NewSerial.ToString("D5");
             }
             else
             {

@@ -38,6 +38,9 @@ namespace _30167671Tester
 
         }
 
+        private void metroWindow_Loaded(object sender, System.Windows.RoutedEventArgs e)
+        {
 
+        }
     }
 }

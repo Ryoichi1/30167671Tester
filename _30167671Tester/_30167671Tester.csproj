@@ -132,6 +132,9 @@
     <Compile Include="DialogPic.xaml.cs">
       <DependentUpon>DialogPic.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Page\Config\Serial.xaml.cs">
+      <DependentUpon>Serial.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Page\ErrInfo\ErrInfoWav.xaml.cs">
       <DependentUpon>ErrInfoWav.xaml</DependentUpon>
     </Compile>
@@ -243,6 +246,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Page\Config\Mente.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Page\Config\Serial.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -78,7 +78,7 @@ namespace _30167671Tester
                 State.VmTestStatus.ErrInfoVisibility = System.Windows.Visibility.Hidden;
                 State.VmTestStatus.StartButtonContent = Constants.開始;
                 State.VmTestStatus.StartButtonEnable = true;
-                State.VmTestStatus.TestTime = "00:00";
+                State.VmTestStatus.TestTime = "00:00:00";
                 State.VmTestStatus.IsActiveRing = false;
 
                 //開始ボタン設定

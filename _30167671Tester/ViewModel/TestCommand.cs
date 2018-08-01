@@ -137,8 +137,8 @@ namespace _30167671Tester
                 sw.Start();
                 while (FlagTestTime)
                 {
-                    Thread.Sleep(200);
-                    State.VmTestStatus.TestTime = sw.Elapsed.ToString().Substring(3, 5);
+                    Thread.Sleep(50);
+                    State.VmTestStatus.TestTime = sw.Elapsed.ToString().Substring(3, 8);
                 }
                 sw.Stop();
             });

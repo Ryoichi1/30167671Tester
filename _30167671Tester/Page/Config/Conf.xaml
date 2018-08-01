@@ -45,13 +45,16 @@
 
 
         <TabControl x:Name="TabMenu" Height="802" Width="1560" Canvas.Left="6" FlowDirection="RightToLeft" Canvas.Top="2" >
-            <TabItem x:Name="TabMente" Header="メンテナンス" Margin="1391,28,-1391,-27" Width="127" HorizontalAlignment="Left" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" Loaded="TabMente_Loaded" Controls:ControlsHelper.HeaderFontSize="18" >
+            <TabItem x:Name="TabMente" Header="メンテナンス" Margin="1398,28,-1398,-27" Width="127" HorizontalAlignment="Left" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" Loaded="TabMente_Loaded" Controls:ControlsHelper.HeaderFontSize="18" >
                 <Frame x:Name="FrameMente" FlowDirection="LeftToRight" Margin="-3,-22,187,-7" />
             </TabItem>
-            <TabItem x:Name="TabOperator" Header="作業者リスト編集" Margin="1261,72,-1261,-73" Width="158" HorizontalAlignment="Left" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" Loaded="TabOperator_Loaded" Controls:ControlsHelper.HeaderFontSize="18">
+            <TabItem x:Name="TabSerial" Header="シリアル設定" Margin="1271,80,-1271,-79" Width="127" HorizontalAlignment="Left" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" Controls:ControlsHelper.HeaderFontSize="18" Loaded="TabSerial_Loaded" >
+                <Frame x:Name="FrameSerial" FlowDirection="LeftToRight" Margin="-3,-22,187,-7" />
+            </TabItem>
+            <TabItem x:Name="TabOperator" Header="作業者リスト編集" Margin="1141,139,-1141,-140" Width="158" HorizontalAlignment="Left" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" Loaded="TabOperator_Loaded" Controls:ControlsHelper.HeaderFontSize="18">
                 <Frame x:Name="FrameOperator" FlowDirection="LeftToRight" Margin="-8,-29,182,-10"/>
             </TabItem>
-            <TabItem x:Name="TabTheme" Header="テーマ" Margin="1114,123,-1146,-123" Loaded="TabTheme_Loaded" Controls:ControlsHelper.HeaderFontSize="18">
+            <TabItem x:Name="TabTheme" Header="テーマ" Margin="994,193,-1026,-193" Loaded="TabTheme_Loaded" Controls:ControlsHelper.HeaderFontSize="18">
                 <Frame x:Name="FrameTheme" FlowDirection="LeftToRight" Margin="-9,-28,181,-8" />
             </TabItem>
         </TabControl>

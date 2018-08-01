@@ -10,10 +10,12 @@ namespace _30167671Tester
     public partial class Conf
     {
         private NavigationService naviMente;
+        private NavigationService naviSerial;
         private NavigationService naviOperator;
         private NavigationService naviTheme;
 
         Uri uriMentePage        = new Uri("Page/Config/Mente.xaml", UriKind.Relative);
+        Uri uriSerialPage       = new Uri("Page/Config/Serial.xaml", UriKind.Relative);
         Uri uriOperatorPage     = new Uri("Page/Config/EditOpeList.xaml", UriKind.Relative);
         Uri uriThemePage        = new Uri("Page/Config/Theme.xaml", UriKind.Relative);
 
@@ -22,10 +24,12 @@ namespace _30167671Tester
             InitializeComponent();
 
             naviMente = FrameMente.NavigationService;
+            naviSerial = FrameSerial.NavigationService;
             naviOperator = FrameOperator.NavigationService;
             naviTheme = FrameTheme.NavigationService;
 
             FrameMente.NavigationUIVisibility = NavigationUIVisibility.Hidden;
+            FrameSerial.NavigationUIVisibility = NavigationUIVisibility.Hidden;
             FrameOperator.NavigationUIVisibility = NavigationUIVisibility.Hidden;
             FrameTheme.NavigationUIVisibility = NavigationUIVisibility.Hidden;
 
@@ -48,8 +52,9 @@ namespace _30167671Tester
             naviTheme.Navigate(uriThemePage);
         }
 
-
-
-
+        private void TabSerial_Loaded(object sender, RoutedEventArgs e)
+        {
+            naviSerial.Navigate(uriSerialPage);
+        }
     }
 }

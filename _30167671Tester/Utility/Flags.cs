@@ -165,7 +165,6 @@ namespace _30167671Tester
                 {
                     State.VmMainWindow.ReadOnlyOpecode = false;
                     State.VmMainWindow.Opecode = "";
-                    State.VmMainWindow.SerialNumber = "";
                 }
 
             }

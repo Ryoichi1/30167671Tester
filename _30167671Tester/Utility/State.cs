@@ -47,8 +47,6 @@ namespace _30167671Tester
 
         public static Uri uriOtherInfoPage { get; set; }
 
-        public static string LastSerial { get; set; }
-
         public static int NewSerial { get; set; }
 
         public static string シリアルナンバー年月部分 { get; set; }
@@ -237,6 +235,15 @@ namespace _30167671Tester
                 Setting.PathTheme = VmMainWindow.Theme;
                 Setting.OpacityTheme = VmMainWindow.ThemeOpacity;
 
+                if (State.TestItem == ITEM._30167671)
+                {
+                    Setting.NextSerial30167671 = State.VmMainWindow.SerialNumber;
+                }
+                else
+                {
+                    Setting.NextSerial30221500 = State.VmMainWindow.SerialNumber;
+                }
+
                 Serialization<Configuration>(Setting, Constants.filePath_Configuration);
 
 
@@ -251,31 +258,19 @@ namespace _30167671Tester
         }
 
 
-        public static bool LoadLastSerial(string filePath)
+        public static void SetSerialInfo()
         {
-            try
+            if (TestItem == ITEM._30167671)
             {
-                // csvファイルを開く
-                using (var sr = new System.IO.StreamReader(filePath))
-                {
-                    var listTestResults = new List<string>();
-                    // ストリームの末尾まで繰り返す
-                    while (!sr.EndOfStream)
-                    {
-                        // ファイルから一行読み込んでリストに追加
-                        listTestResults.Add(sr.ReadLine());
-                    }
+                シリアルナンバー年月部分 = Setting.NextSerial30167671.Substring(0, 4);
+                NewSerial = Int32.Parse(Setting.NextSerial30167671.Substring(4));
+            }
+            else
+            {
+                シリアルナンバー年月部分 = Setting.NextSerial30221500.Substring(0, 4);
+                NewSerial = Int32.Parse(Setting.NextSerial30221500.Substring(4));
+            }
 
-                    var lastData = listTestResults.Last();
-                    LastSerial = lastData.Split(',')[0];
-                    return true;
-                }
-            }
-            catch
-            {
-                return false;
-                // ファイルを開くのに失敗したとき
-            }
         }
 
     }

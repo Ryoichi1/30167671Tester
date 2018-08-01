@@ -6,6 +6,9 @@ namespace _30167671Tester
     {
         public string 日付 { get; set; }
 
+        public string NextSerial30167671 { get; set; }
+        public string NextSerial30221500 { get; set; }
+
         public int TodayOkCount { get; set; }
         public int TodayNgCount { get; set; }
 

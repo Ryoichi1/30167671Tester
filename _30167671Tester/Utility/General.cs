@@ -510,7 +510,6 @@ namespace _30167671Tester
             //シリアル№のインクリメント
             State.VmMainWindow.SerialNumber = State.シリアルナンバー年月部分 + State.NewSerial.ToString("D5");
 
-            State.VmMainWindow.SerialNumber = State.VmMainWindow.SerialNumber.Substring(0, 6) + State.NewSerial.ToString("D3");
             //ViewModel OK台数、NG台数、Total台数の更新
             State.VmTestStatus.OkCount = State.Setting.TodayOkCount.ToString() + "台";
             State.VmTestStatus.NgCount = State.Setting.TodayNgCount.ToString() + "台";
@@ -521,7 +520,7 @@ namespace _30167671Tester
             State.VmTestStatus.ErrInfoVisibility = System.Windows.Visibility.Hidden;
             State.VmTestStatus.RingVisibility = System.Windows.Visibility.Visible;
 
-            State.VmTestStatus.TestTime = "00:00";
+            State.VmTestStatus.TestTime = "00:00:00";
             State.VmTestStatus.進捗度 = 0;
             State.VmTestStatus.TestLog = "";
 
