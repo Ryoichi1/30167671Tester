@@ -8,17 +8,14 @@
         BorderThickness="1"
         ShowTitleBar="False"
         mc:Ignorable="d"
-        Height="880" Width="1594" WindowStartupLocation="CenterScreen" AllowsTransparency="True" WindowStyle="None" Closed="MetroWindow_Closed" Closing="MetroWindow_Closing" Icon="Resources/Pic/VisualStudio_32x.png" IsEnabled="{Binding MainWinEnable}" WindowTitleBrush="{x:Null}" >
+        Height="880" Width="1594" WindowStartupLocation="CenterScreen" AllowsTransparency="True" WindowStyle="None" Closed="MetroWindow_Closed" Closing="MetroWindow_Closing" IsEnabled="{Binding MainWinEnable}" WindowTitleBrush="{x:Null}" >
 
-    <Canvas>
-        <Canvas Height="878" Width="1592">
-            <Canvas.Effect>
+    <Grid>
+        <Image Source="{Binding Theme}" Opacity="{Binding ThemeOpacity}" Stretch="UniformToFill">
+            <Image.Effect>
                 <BlurEffect Radius="{Binding ThemeBlurEffectRadius}"/>
-            </Canvas.Effect>
-            <Canvas.Background>
-                <ImageBrush Opacity="{Binding ThemeOpacity}" ImageSource="{Binding Theme, NotifyOnSourceUpdated=True}" Stretch="UniformToFill" />
-            </Canvas.Background>
-        </Canvas>
+            </Image.Effect>
+        </Image>
         <Canvas x:Name="MainBack" Height="868" Width="1582">
             <Label Content="新CPU基板TESTER" Height="33" Width="189" FontSize="20" FontStyle="Italic" Foreground="White" Canvas.Top="3" Canvas.Left="7">
                 <Label.Effect>
@@ -65,5 +62,5 @@
             </Polyline>
 
         </Canvas>
-    </Canvas>
+    </Grid>
 </Controls:MetroWindow>

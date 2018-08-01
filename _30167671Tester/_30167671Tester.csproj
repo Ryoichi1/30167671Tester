@@ -306,7 +306,6 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\Pic\ai.png" />
     <Resource Include="Resources\Pic出力回路\Interlock1.jpg" />
     <Resource Include="Resources\Pic出力回路\Interlock2.jpg" />
     <Resource Include="Resources\Pic出力回路\Interlock30167671.jpg" />
@@ -318,9 +317,9 @@
     <Resource Include="Resources\Pic\baby1.jpg" />
     <Resource Include="Resources\Pic\baby2.jpg" />
     <Resource Include="Resources\Pic\nagasaki.jpg" />
-    <Resource Include="Resources\Pic\non.png" />
     <Resource Include="Resources\Pic\non2.png" />
     <Resource Include="Resources\Pic\30167671シルク図.jpg" />
+    <Resource Include="Resources\Pic\yuimetal.jpg" />
     <Content Include="Resources\Wav\108_96.wav">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -336,7 +335,6 @@
     <Content Include="Resources\Wav\Alarm.wav">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Resource Include="Resources\Pic\baby4.jpg" />
     <Content Include="Resources\Wav\Battery.wav">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -361,7 +359,6 @@
     <Content Include="Resources\Wav\Totsugeki.wav">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Resource Include="Resources\Pic\VisualStudio_32x.png" />
     <Resource Include="Resources\Pic\Azbil_logo.png" />
     <Content Include="Resources\Wav\Fail.wav">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>

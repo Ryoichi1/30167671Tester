@@ -32,7 +32,7 @@ namespace _30167671Tester
         private void Pic2_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
 
-            State.VmMainWindow.Theme = "Resources/Pic/non.png";
+            State.VmMainWindow.Theme = "Resources/Pic/yuimetal.jpg";
             General.Show();
         }
 
@@ -55,13 +55,6 @@ namespace _30167671Tester
             State.VmMainWindow.Theme = "Resources/Pic/baby3.jpg";
             General.Show();
         }
-
-        private void Pic6_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
-        {
-            State.VmMainWindow.Theme = "Resources/Pic/baby4.jpg";
-            General.Show();
-        }
-
 
 
         private void SliderOpacity_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)

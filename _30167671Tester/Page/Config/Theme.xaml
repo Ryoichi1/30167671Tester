@@ -6,7 +6,7 @@
 	x:Name="Page"
 	WindowTitle="Page"
 	FlowDirection="LeftToRight"
-	Width="1048.929" Height="525">
+	Width="1302.925" Height="788.067">
 
 
     <Canvas x:Name="LayoutRoot" Height="515" VerticalAlignment="Top">
@@ -19,7 +19,7 @@
         <Image x:Name="Pic2" Canvas.Left="172" Canvas.Top="36" Width="136" Cursor="Hand" PreviewMouseLeftButtonDown="Pic2_PreviewMouseLeftButtonDown" Height="83">
             <Image.Source>
                 <BitmapImage DecodePixelWidth="128"
-        			UriSource="/Resources/Pic/non.png"/>
+        			UriSource="/Resources/Pic/yuimetal.jpg"/>
             </Image.Source>
         </Image>
         <Image x:Name="Pic3" Canvas.Left="320" Canvas.Top="39" Width="129" Cursor="Hand" PreviewMouseLeftButtonDown="Pic3_PreviewMouseLeftButtonDown" Height="77">
@@ -40,12 +40,6 @@
             <Image.Source>
                 <BitmapImage DecodePixelWidth="128"
                     UriSource="/Resources/Pic/baby3.jpg"/>
-            </Image.Source>
-        </Image>
-        <Image x:Name="Pic6" Canvas.Left="728" Canvas.Top="44" Width="128" Cursor="Hand" PreviewMouseLeftButtonDown="Pic6_PreviewMouseLeftButtonDown">
-            <Image.Source>
-                <BitmapImage DecodePixelWidth="128"
-        			UriSource="/Resources/Pic/baby4.jpg"/>
             </Image.Source>
         </Image>
 
