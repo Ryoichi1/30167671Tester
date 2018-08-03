@@ -60,10 +60,9 @@ namespace _30167671Tester
             //メタルモード設定（デフォルトは禁止とする）
             Flags.MetalModeSw = false;
 
-            if (State.TestItem == ITEM._30167671)
-                State.VmMainWindow.SerialNumber = State.Setting.NextSerial30167671;
-            else
-                State.VmMainWindow.SerialNumber = State.Setting.NextSerial30221500;
+            State.SetSerialInfo();
+            State.VmMainWindow.SerialNumber = State.シリアルナンバー年月部分 + State.NewSerial.ToString("D5");
+
 
         }
 
@@ -189,8 +188,6 @@ namespace _30167671Tester
                 timerTextInput.Stop();
                 Flags.SetOpecode = true;
 
-                State.SetSerialInfo();
-                State.VmMainWindow.SerialNumber = State.シリアルナンバー年月部分 + State.NewSerial.ToString("D5");
             }
             else
             {
